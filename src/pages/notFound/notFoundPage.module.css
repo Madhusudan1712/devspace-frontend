@@ -1,0 +1,48 @@
+/* Color Palette:
+   Level 1: #F6F8D5 (light background)
+   Level 2: #98D2C0 (soft accent)
+   Level 3: #4F959D (primary accent)
+   Level 4: #205781 (deep blue background)
+   Level 5: #052a7a (buttons)
+*/
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #98D2C0, #4F959D); /* Level 2 to Level 3 */
+  color: #F6F8D5; /* Level 1 text */
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  padding: 16px;
+}
+
+.heading {
+  font-size: 120px;
+  font-weight: bold;
+  text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.message {
+  font-size: 20px;
+  margin-bottom: 20px;
+  opacity: 0.95;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  background-color: #052a7a; /* Level 5 */
+  color: #F6F8D5; /* Level 1 */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #205781; /* Level 4 */
+  transform: translateY(-2px);
+}

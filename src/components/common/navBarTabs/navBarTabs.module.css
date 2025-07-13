@@ -1,0 +1,102 @@
+/* AppBar and Toolbar */
+.appbar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Desktop Tabs */
+.navbar-tabs {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  margin-left: auto;
+}
+
+.tab-link {
+  color: #F6F8D5; /* Level 1 */
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tab-link:hover {
+  color: #98D2C0; /* Level 2 */
+  transform: scale(1.05);
+}
+
+.active {
+  color: #98D2C0; /* Level 2 */
+  font-weight: 700;
+}
+
+.tab-underline {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #98D2C0; /* Level 2 */
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+/* Drawer for Mobile */
+.drawer {
+  background-color: #205781; /* Level 4 */
+  color: #F6F8D5; /* Level 1 */
+  width: 250px;
+  padding: 20px;
+}
+
+.drawer-link {
+  display: block;
+  position: relative;
+  padding-bottom: 6px;
+  color: #F6F8D5; /* Level 1 */
+  text-decoration: none;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  transition: color 0.3s ease;
+}
+
+.drawer-link:hover {
+  color: #98D2C0; 
+}
+
+.drawer-link:focus {
+  background-color: #4F959D; 
+}
+
+.drawer-link.active {
+  font-weight: 700;
+  color: #98D2C0; 
+  background-color: #4F959D; 
+  padding: 6px 8px;
+}
+
+.drawer-underline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #98D2C0; 
+  transition: background-color 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-tabs {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+}

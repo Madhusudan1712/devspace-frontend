@@ -1,0 +1,14 @@
+  .logoButton {
+    padding: 0 !important;
+    text-decoration: none;
+    min-width: auto;
+    background: transparent;
+  }
+
+  .logoImage {
+    height: 60px;
+    width: auto;
+    display: block;
+  }
+  
+  
