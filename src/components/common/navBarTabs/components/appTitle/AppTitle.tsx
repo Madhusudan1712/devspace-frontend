@@ -7,7 +7,7 @@ const AppTitle: React.FC = () => {
   return (
     <Button component={Link} to="/" className={styles.logoButton}>
       <img
-        src="/assets/appTitle.png"
+        src={import.meta.env.VITE_API_TITLE_LOGO_URL}
         alt="DevSpace Logo"
         className={styles.logoImage}
       />
