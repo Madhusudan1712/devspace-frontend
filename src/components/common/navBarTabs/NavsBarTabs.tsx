@@ -12,8 +12,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import styles from "./navBarTabs.module.css";
 import AppTitle from "./components/appTitle/AppTitle.tsx";
-import LoginButton from "./components/loginButton/LoginButton.tsx";
-import LoginDialog from "../auth/LoginDialog.tsx"; 
+import LogoutBtn from "./components/logoutBtn/LogoutBtn.tsx";
 
 const NavsBarTabs = () => {
   const location = useLocation();
@@ -24,8 +23,6 @@ const NavsBarTabs = () => {
   const [underlineStyle, setUnderlineStyle] = useState<React.CSSProperties>({});
   const [openDrawer, setOpenDrawer] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLoginDialog, setShowLoginDialog] = useState(false);
 
   useEffect(() => {
     const activeTab = tabsRef.current[currentPath];
@@ -36,26 +33,6 @@ const NavsBarTabs = () => {
   }, [currentPath]);
 
   const handleDrawerToggle = () => setOpenDrawer((o) => !o);
-
-  const handleLoginClick = () => {
-    if (isLoggedIn) {
-      // Logout
-      setIsLoggedIn(false);
-      // Clear storage/cookies if needed
-    } else {
-      // Open login dialog
-      setShowLoginDialog(true);
-    }
-  };
-
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true);
-    setShowLoginDialog(false);
-  };
-
-  const handleDialogClose = () => {
-    setShowLoginDialog(false);
-  };
 
   const renderDrawer = () => (
     <>
@@ -81,7 +58,7 @@ const NavsBarTabs = () => {
             );
           })}
           <Box className={styles["drawer-admin-button"]}>
-            <LoginButton onClick={handleLoginClick} isLoggedIn={isLoggedIn} />
+            <LogoutBtn />
           </Box>
         </Box>
       </Drawer>
@@ -106,7 +83,7 @@ const NavsBarTabs = () => {
         );
       })}
       <span ref={underlineRef} className={styles["tab-underline"]} style={underlineStyle} />
-      <LoginButton onClick={handleLoginClick} isLoggedIn={isLoggedIn} />
+      <LogoutBtn />
     </Box>
   );
 
@@ -118,15 +95,6 @@ const NavsBarTabs = () => {
           {isMobile ? renderDrawer() : renderTabs()}
         </Toolbar>
       </AppBar>
-
-      {/* Login Dialog */}
-      {showLoginDialog && (
-        <LoginDialog
-          open={showLoginDialog}
-          onClose={handleDialogClose}
-          onSuccess={handleLoginSuccess}
-        />
-      )}
     </Box>
   );
 };

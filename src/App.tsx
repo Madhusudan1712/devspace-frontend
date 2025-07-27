@@ -1,12 +1,13 @@
+import { Box } from '@mui/material'
 import NavsAndTabs from './components/common/navBarTabs/NavsBarTabs';
 import AppRoutes from './app/AppRoutes';
 
 function App() {
   return (
-    <div>
+    <Box>
       <NavsAndTabs />
       <AppRoutes />
-    </div>
+    </Box>
   );
 }
 
