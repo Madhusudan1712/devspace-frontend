@@ -4,7 +4,7 @@ import {
   Toolbar,
   IconButton,
   useMediaQuery,
-  Drawer
+  Drawer,
 } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { tabsData } from "./TabsData.ts";
@@ -13,6 +13,8 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./navBarTabs.module.css";
 import AppTitle from "./components/appTitle/AppTitle.tsx";
 import LogoutBtn from "./components/logoutBtn/LogoutBtn.tsx";
+import UserMenu from "./userMenu/AccountSection.tsx";
+import AccountSection from "./userMenu/AccountSection.tsx";
 
 const NavsBarTabs = () => {
   const location = useLocation();
@@ -36,11 +38,20 @@ const NavsBarTabs = () => {
 
   const renderDrawer = () => (
     <>
-      <IconButton edge="end" color="inherit" onClick={handleDrawerToggle} aria-label="menu">
+      <IconButton
+        edge="end"
+        color="inherit"
+        onClick={handleDrawerToggle}
+        aria-label="menu"
+      >
         <MenuIcon />
       </IconButton>
       <Drawer anchor="right" open={openDrawer} onClose={handleDrawerToggle}>
-        <Box className={styles.drawer} role="presentation" onClick={handleDrawerToggle}>
+        <Box
+          className={styles.drawer}
+          role="presentation"
+          onClick={handleDrawerToggle} // ✅ Now normal clicks close drawer
+        >
           {tabsData.map((tab) => {
             const isActive = currentPath.startsWith(tab.path);
             return (
@@ -50,15 +61,21 @@ const NavsBarTabs = () => {
                 ref={(el) => {
                   tabsRef.current[tab.path] = el;
                 }}
-                className={`${styles["drawer-link"]} ${isActive ? styles.active : ""}`}
+                className={`${styles["drawer-link"]} ${
+                  isActive ? styles.active : ""
+                }`}
               >
                 {tab.label}
                 {isActive && <span className={styles["drawer-underline"]} />}
               </Link>
             );
           })}
-          <Box className={styles["drawer-admin-button"]}>
-            <LogoutBtn />
+
+          <Box
+            className={styles["drawer-admin-button"]}
+            onClick={(e) => e.stopPropagation()} // ✅ Only AccountSection clicks won't close drawer
+          >
+            <AccountSection />
           </Box>
         </Box>
       </Drawer>
@@ -82,8 +99,12 @@ const NavsBarTabs = () => {
           </Link>
         );
       })}
-      <span ref={underlineRef} className={styles["tab-underline"]} style={underlineStyle} />
-      <LogoutBtn />
+      <span
+        ref={underlineRef}
+        className={styles["tab-underline"]}
+        style={underlineStyle}
+      />
+      <AccountSection />
     </Box>
   );
 
