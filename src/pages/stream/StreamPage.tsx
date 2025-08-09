@@ -1,13 +1,22 @@
-// StreamPage.tsx
 import { useEffect } from "react";
 import Loading from "../../components/common/loading/Loading";
-import useAuthCheck from "../../hooks/useAuthCheck";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { fetchCurrentUser } from "../../features/auth/authThunks";
 
 function StreamPage() {
-  const { loading, user } = useAuthCheck();
+  const dispatch = useAppDispatch();
+  const { user, loading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    console.log("User Info:", user); // ✅ Safe placement
+    if (!user) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [user, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      console.log("User Info:", user);
+    }
   }, [user]);
 
   if (loading) return <Loading />;
@@ -20,7 +29,7 @@ function StreamPage() {
           <p><strong>Name:</strong> {user.name}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>ID:</strong> {user.id}</p>
-          <p><strong>Domain:</strong> {user.domain}</p>
+          <p><strong>Domain:</strong> {user.application}</p>
           <p><strong>Role:</strong> {user.role}</p>
         </div>
       ) : (
