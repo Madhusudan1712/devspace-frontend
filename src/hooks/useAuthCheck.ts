@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE = import.meta.env.VITE_API_EXTERNAL_URL;
+const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
+
 interface User {
   id: string;
   name: string;
@@ -21,9 +24,7 @@ export default function useAuthCheck() {
     let cancelled = false;
 
     axios
-      .get("http://authcenter.madhusudan.space:8080/user/me", {
-        withCredentials: true,
-      })
+      .get(`${API_BASE}/user/me`, { withCredentials: true })
       .then((res) => {
         if (!cancelled && res.status === 200) {
           setAuthenticated(true);
@@ -34,7 +35,7 @@ export default function useAuthCheck() {
         if (!cancelled) {
           setRedirecting(true);
           const redirectUri = encodeURIComponent(window.location.href);
-          window.location.href = `http://authcenter.madhusudan.space:5000/auth?redirect=${redirectUri}`;
+          window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
         }
       })
       .finally(() => {
