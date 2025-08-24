@@ -6,6 +6,8 @@ import NavsAndTabs from "./components/common/navBarTabs/NavsBarTabs";
 import AppRoutes from "./app/AppRoutes";
 import Loading from "./components/common/loading/Loading";
 
+const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
+
 function App() {
   const dispatch = useAppDispatch();
   const { loading, isAuthenticated, redirecting } = useAppSelector((state) => state.auth);
@@ -17,7 +19,7 @@ function App() {
   useEffect(() => {
     if (redirecting) {
       const redirectUri = encodeURIComponent(window.location.href);
-      window.location.href = `http://authcenter.madhusudan.space:5000/auth?redirect=${redirectUri}`;
+      window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
     }
   }, [redirecting]);
 
