@@ -3,14 +3,13 @@ import { getCurrentUser, logoutService } from "../../services/auth/authService";
 import type { User } from "./authSlice";
 
 // fetch current user thunk
-export const fetchCurrentUser = createAsyncThunk<User>(
+export const fetchCurrentUser = createAsyncThunk<User | null, void>(
   "auth/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const user = await getCurrentUser();
-      return user;
-    } catch (error) {
-      return rejectWithValue("Unauthorized");
+      return await getCurrentUser();
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || "Failed to fetch user");
     }
   }
 );

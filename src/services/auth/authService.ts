@@ -1,10 +1,13 @@
 import axios from "axios";
+import { ApiResponse, User } from "../../types/RequestOrResponse";
 
 const API_BASE = import.meta.env.VITE_API_EXTERNAL_URL;
 const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
-export const getCurrentUser = async () => {
-  const res = await axios.get(`${API_BASE}/user/me`, { withCredentials: true });
+export const getCurrentUser = async (): Promise<User | null> => {
+  const res = await axios.get<ApiResponse<User | null>>(`${API_BASE}/user/me`, {
+    withCredentials: true,
+  });
   return res.data.data;
 };
 

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction, } from "@reduxjs/toolkit";
 import { fetchCurrentUser, logoutUser } from "./authThunks";
 
 export interface User {
@@ -38,10 +38,10 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchCurrentUser.fulfilled, (state, action: PayloadAction<User>) => {
+      .addCase(fetchCurrentUser.fulfilled, (state, action: PayloadAction<User | null>) => {
         state.loading = false;
         state.user = action.payload;
-        state.isAuthenticated = true;
+        state.isAuthenticated = action.payload !== null;
         state.redirecting = false;
       })
       .addCase(fetchCurrentUser.rejected, (state) => {
