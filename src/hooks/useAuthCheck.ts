@@ -24,7 +24,7 @@ export default function useAuthCheck() {
     let cancelled = false;
 
     axios
-      .get(`${API_BASE}/user/me`, { withCredentials: true })
+      .get<{ data: User }>(`${API_BASE}/user/me`, { withCredentials: true })
       .then((res) => {
         if (!cancelled && res.status === 200) {
           setAuthenticated(true);
@@ -38,7 +38,12 @@ export default function useAuthCheck() {
           window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
         }
       })
-      .finally(() => {
+      .then(() => {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      })
+      .catch(() => {
         if (!cancelled) {
           setLoading(false);
         }

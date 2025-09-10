@@ -1,15 +1,7 @@
 import { createSlice, type PayloadAction, } from "@reduxjs/toolkit";
 import { fetchCurrentUser, logoutUser } from "./authThunks";
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  application: string;
-  approved: boolean;
-  mfaEnabled: boolean;
-  role: string;
-}
+import type { User } from "../../types/RequestOrResponse";
 
 interface AuthState {
   user: User | null;

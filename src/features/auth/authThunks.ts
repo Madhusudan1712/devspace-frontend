@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getCurrentUser, logoutService } from "../../services/auth/authService";
-import type { User } from "./authSlice";
+import type { User } from "../../types/RequestOrResponse";
 
 // fetch current user thunk
 export const fetchCurrentUser = createAsyncThunk<User | null, void>(

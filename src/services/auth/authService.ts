@@ -5,7 +5,7 @@ const API_BASE = import.meta.env.VITE_API_EXTERNAL_URL;
 const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
 export const getCurrentUser = async (): Promise<User | null> => {
-  const res = await axios.get<ApiResponse<User | null>>(`${API_BASE}/user/me`, {
+  const res = await axios.get<ApiResponse<User>>(`${API_BASE}/user/me`, {
     withCredentials: true,
   });
   return res.data.data;
@@ -31,5 +31,12 @@ export const logoutService = async () => {
 };
 
 export const refreshAccessToken = async () => {
-  await axios.post(`${API_BASE}/auth/refresh`, {}, { withCredentials: true });
+  const res = await axios.post(
+    `${API_BASE}/auth/refresh`,
+    {},
+    {
+      withCredentials: true, 
+    }
+  );
+  return res.data;
 };
