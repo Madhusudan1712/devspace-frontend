@@ -30,7 +30,7 @@ function StreamPage() {
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>ID:</strong> {user.id}</p>
           <p><strong>Domain:</strong> {user.application}</p>
-          <p><strong>Role:</strong> {user.role}</p>
+          <p><strong>Role:</strong> Mutiple roles </p>
         </div>
       ) : (
         <p>No user info found.</p>
