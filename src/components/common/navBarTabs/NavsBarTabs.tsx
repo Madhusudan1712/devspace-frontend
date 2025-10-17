@@ -12,8 +12,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import styles from "./navBarTabs.module.css";
 import AppTitle from "./components/appTitle/AppTitle.tsx";
-import LogoutBtn from "./components/logoutBtn/LogoutBtn.tsx";
-import UserMenu from "./userMenu/AccountSection.tsx";
 import AccountSection from "./userMenu/AccountSection.tsx";
 
 const NavsBarTabs = () => {
