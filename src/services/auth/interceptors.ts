@@ -2,7 +2,7 @@ import axios from "axios";
 import { refreshAccessToken } from "../auth/authService";
 
 const API_BASE = import.meta.env.VITE_API_EXTERNAL_URL;
-const AUTHCENTER_URL = "https://authcenter.madhusudan.space";
+const AUTHCENTER_URL = import.meta.env.VITE_AUTHCENTER_URL;
 
 const api = axios.create({
   baseURL: API_BASE,

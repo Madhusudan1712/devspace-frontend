@@ -22,6 +22,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
 import { logoutUser } from "../../../../features/auth/authThunks";
 import { useState } from "react";
+const AUTHCENTER_URL = import.meta.env.VITE_AUTHCENTER_URL;
 
 const AccountSection = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +35,7 @@ const AccountSection = () => {
   const handleLogout = () => {
     dispatch(logoutUser()).then(() => {
       const redirectUri = encodeURIComponent(window.location.origin);
-      window.location.href = `http://authcenter.madhusudan.space:5000/auth?redirect=${redirectUri}`;
+      window.location.href = `${AUTHCENTER_URL}/auth?redirect=${redirectUri}`;
     });
   };
 
