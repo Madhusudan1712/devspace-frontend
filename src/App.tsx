@@ -12,8 +12,37 @@ function App() {
   const dispatch = useAppDispatch();
   const { loading, isAuthenticated, redirecting } = useAppSelector((state) => state.auth);
 
+  // initial load + revalidation hooks for focus/visibility/storage to force calling getCurrentUser
   useEffect(() => {
-    dispatch(fetchCurrentUser());
+    const revalidate = () => {
+      // always call the server to get current user (no reliance on stored token)
+      dispatch(fetchCurrentUser());
+    };
+
+    // initial fetch
+    revalidate();
+
+    // revalidate when the tab gains focus (covers tab switching)
+    window.addEventListener("focus", revalidate);
+
+    // revalidate when the page becomes visible (covers restoring from background)
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") revalidate();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    // revalidate when localStorage changes in other tabs (e.g., logout/login)
+    const onStorage = (e: StorageEvent) => {
+      // optionally, only react to auth-related keys. Revalidate anyway to be safe.
+      revalidate();
+    };
+    window.addEventListener("storage", onStorage);
+
+    return () => {
+      window.removeEventListener("focus", revalidate);
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("storage", onStorage);
+    };
   }, [dispatch]);
 
   useEffect(() => {

@@ -5,6 +5,10 @@ const API_BASE = import.meta.env.VITE_API_EXTERNAL_URL;
 const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
 export const getCurrentUser = async (): Promise<User | null> => {
+  if (axios.defaults.headers?.common?.Authorization) {
+    delete axios.defaults.headers.common.Authorization;
+  }
+
   const res = await axios.get<ApiResponse<User>>(`${API_BASE}/user/me`, {
     withCredentials: true,
   });
