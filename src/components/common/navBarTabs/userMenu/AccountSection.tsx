@@ -22,7 +22,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
 import { logoutUser } from "../../../../features/auth/authThunks";
 import { useState } from "react";
-const AUTHCENTER_URL = import.meta.env.VITE_AUTHCENTER_URL;
+const AUTHCENTER_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
 const AccountSection = () => {
   const dispatch = useAppDispatch();
@@ -32,11 +32,15 @@ const AccountSection = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleLogout = () => {
-    dispatch(logoutUser()).then(() => {
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+    } catch (e) {
+      // ignore and still force a central logout redirect
+    } finally {
       const redirectUri = encodeURIComponent(window.location.origin);
-      window.location.href = `${AUTHCENTER_URL}/auth?redirect=${redirectUri}`;
-    });
+      window.location.href = `${AUTHCENTER_UI_URL}/auth?redirect=${redirectUri}`;
+    }
   };
 
   const firstLetter = user?.name?.charAt(0).toUpperCase() || "?";
