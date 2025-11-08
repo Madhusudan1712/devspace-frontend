@@ -1,19 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { fetchCurrentUser } from "./features/auth/authThunks";
+import { fetchCurrentUser, getIsAppUserThunk } from "./features/auth/authThunks";
 import NavsAndTabs from "./components/common/navBarTabs/NavsBarTabs";
 import AppRoutes from "./app/AppRoutes";
 import Loading from "./components/common/loading/Loading";
+import { selectGetisAppUserLoading, selectIsAppUser } from "./features/auth/authSelectors";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
 function App() {
   const dispatch = useAppDispatch();
   const { loading, isAuthenticated, redirecting } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const isAppUser = useSelector(selectIsAppUser);
+  const isAppUserLoading = useSelector(selectGetisAppUserLoading);
+  const [hasChecked, setHasChecked] = useState(false);
 
   // initial load + revalidation hooks for focus/visibility/storage to force calling getCurrentUser
   useEffect(() => {
+    (dispatch as any)(getIsAppUserThunk()).then(() => {
+      // Only set hasChecked after API call completes
+      setHasChecked(true);
+    });
+
     const revalidate = () => {
       // always call the server to get current user (no reliance on stored token)
       dispatch(fetchCurrentUser());
@@ -44,6 +56,18 @@ function App() {
       window.removeEventListener("storage", onStorage);
     };
   }, [dispatch]);
+
+  useEffect(() => {
+  // Only redirect after API call completes and Redux state is updated
+  if (hasChecked && !isAppUser) {
+      const fullRedirectUrl = `${window.location.origin}/super-admin/home`;
+      navigate(`/auth?redirect=${encodeURIComponent(fullRedirectUrl)}`, { replace: true });
+  }
+  }, [hasChecked, isAppUser, navigate]);
+
+  if (!hasChecked || isAppUserLoading) {
+      return <Loading/>;
+  }
 
   useEffect(() => {
     if (redirecting) {

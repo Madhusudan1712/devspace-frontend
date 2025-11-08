@@ -1,10 +1,12 @@
 import { createSlice, type PayloadAction, } from "@reduxjs/toolkit";
-import { fetchCurrentUser, logoutUser } from "./authThunks";
+import { fetchCurrentUser, getIsAppUserThunk, logoutUser } from "./authThunks";
 
 import type { User } from "../../types/RequestOrResponse";
 
 interface AuthState {
   user: User | null;
+  getIsAppUserLoading: boolean;
+  IsAppUser: boolean;
   loading: boolean;
   isAuthenticated: boolean;
   redirecting: boolean;
@@ -13,6 +15,8 @@ interface AuthState {
 
 const initialState: AuthState = {
   user: null,
+  getIsAppUserLoading: false,
+  IsAppUser: false,
   loading: true,
   isAuthenticated: false,
   redirecting: false,
@@ -40,6 +44,20 @@ const authSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = false;
         state.redirecting = true;
+      });
+
+      // getIsSuperAdmin
+      builder.addCase(getIsAppUserThunk.pending, (state) => {
+          state.getIsAppUserLoading = true;
+          state.error = null;
+      });
+      builder.addCase(getIsAppUserThunk.fulfilled, (state, action) => {
+          state.getIsAppUserLoading = false;
+          state.IsAppUser = action.payload;
+      });
+      builder.addCase(getIsAppUserThunk.rejected, (state, action) => {
+          state.getIsAppUserLoading = false;
+          state.error = typeof action.payload === 'string' ? action.payload : 'Error';
       });
 
     // Logout User
