@@ -19,33 +19,56 @@ function App() {
   const isAppUserLoading = useSelector(selectGetisAppUserLoading);
   const [hasChecked, setHasChecked] = useState(false);
 
-  // initial load + revalidation hooks for focus/visibility/storage to force calling getCurrentUser
+  // initial is-app-user check -> if false redirect immediately, if true call /me
   useEffect(() => {
-    (dispatch as any)(getIsAppUserThunk()).then(() => {
-      // Only set hasChecked after API call completes
-      setHasChecked(true);
-    });
+    let mounted = true;
+    (async () => {
+      try {
+        const action = await (dispatch as any)(getIsAppUserThunk());
+        const isAppUserResult = action?.payload ?? false;
+        if (!mounted) return;
+
+        setHasChecked(true);
+
+        if (!isAppUserResult) {
+          const fullRedirectUrl = `${window.location.origin}/super-admin/home`;
+          navigate(`/auth?redirect=${encodeURIComponent(fullRedirectUrl)}`, { replace: true });
+          return;
+        }
+
+        // confirmed app user -> fetch current user
+        dispatch(fetchCurrentUser());
+      } catch (err) {
+        if (!mounted) return;
+        setHasChecked(true);
+        console.error("isAppUser check failed:", err);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [dispatch, navigate]);
+
+  // revalidation hooks: only fetch /me when we know the user is an app user
+  useEffect(() => {
+    if (!isAppUser) return;
 
     const revalidate = () => {
-      // always call the server to get current user (no reliance on stored token)
       dispatch(fetchCurrentUser());
     };
 
-    // initial fetch
+    // initial revalidate when isAppUser becomes true
     revalidate();
 
-    // revalidate when the tab gains focus (covers tab switching)
     window.addEventListener("focus", revalidate);
 
-    // revalidate when the page becomes visible (covers restoring from background)
     const onVisibility = () => {
       if (document.visibilityState === "visible") revalidate();
     };
     document.addEventListener("visibilitychange", onVisibility);
 
-    // revalidate when localStorage changes in other tabs (e.g., logout/login)
-    const onStorage = (e: StorageEvent) => {
-      // optionally, only react to auth-related keys. Revalidate anyway to be safe.
+    const onStorage = (_e: StorageEvent) => {
       revalidate();
     };
     window.addEventListener("storage", onStorage);
@@ -55,18 +78,11 @@ function App() {
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("storage", onStorage);
     };
-  }, [dispatch]);
+  }, [dispatch, isAppUser]);
 
-  useEffect(() => {
-  // Only redirect after API call completes and Redux state is updated
-  if (hasChecked && !isAppUser) {
-      const fullRedirectUrl = `${window.location.origin}/super-admin/home`;
-      navigate(`/auth?redirect=${encodeURIComponent(fullRedirectUrl)}`, { replace: true });
-  }
-  }, [hasChecked, isAppUser, navigate]);
-
+  // show loading while checking isAppUser or its loading state
   if (!hasChecked || isAppUserLoading) {
-      return <Loading/>;
+    return <Loading />;
   }
 
   useEffect(() => {
