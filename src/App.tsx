@@ -31,8 +31,8 @@ function App() {
         setHasChecked(true);
 
         if (!isAppUserResult) {
-          const fullRedirectUrl = `${window.location.origin}/super-admin/home`;
-          navigate(`/auth?redirect=${encodeURIComponent(fullRedirectUrl)}`, { replace: true });
+          const redirectUri = encodeURIComponent(window.location.href);
+          window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
           return;
         }
 
@@ -41,7 +41,8 @@ function App() {
       } catch (err) {
         if (!mounted) return;
         setHasChecked(true);
-        console.error("isAppUser check failed:", err);
+        const redirectUri = encodeURIComponent(window.location.href);
+        window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
       }
     })();
 

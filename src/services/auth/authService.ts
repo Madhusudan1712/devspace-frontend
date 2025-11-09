@@ -6,7 +6,7 @@ const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
 export const getIsAppUser = async (): Promise<boolean> => {
   const res = await axios.get<ApiResponse<boolean>>(
-    `${AUTH_API_BASE}/approval/is-app-user`,
+    `${AUTH_API_BASE}/auth/is-app-user`,
     { withCredentials: true }
   );
   return res.data.data ?? false; 
