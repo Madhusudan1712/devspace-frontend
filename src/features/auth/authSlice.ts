@@ -1,12 +1,10 @@
 import { createSlice, type PayloadAction, } from "@reduxjs/toolkit";
-import { fetchCurrentUser, getIsAppUserThunk, logoutUser } from "./authThunks";
+import { fetchCurrentUser, logoutUser } from "./authThunks";
 
 import type { User } from "../../types/RequestOrResponse";
 
 interface AuthState {
   user: User | null;
-  getIsAppUserLoading: boolean;
-  IsAppUser: boolean;
   loading: boolean;
   isAuthenticated: boolean;
   redirecting: boolean;
@@ -15,8 +13,6 @@ interface AuthState {
 
 const initialState: AuthState = {
   user: null,
-  getIsAppUserLoading: false,
-  IsAppUser: false,
   loading: true,
   isAuthenticated: false,
   redirecting: false,
@@ -42,30 +38,6 @@ const authSlice = createSlice({
       })
       .addCase(fetchCurrentUser.rejected, (state) => {
         state.loading = false;
-        state.isAuthenticated = false;
-        state.redirecting = true;
-      });
-
-      // getIsAppUser
-      builder.addCase(getIsAppUserThunk.pending, (state) => {
-          state.getIsAppUserLoading = true;
-          state.error = null;
-      });
-      builder.addCase(getIsAppUserThunk.fulfilled, (state, action: PayloadAction<boolean>) => {
-        state.getIsAppUserLoading = false;
-        state.IsAppUser = action.payload;
-        // Use boolean payload directly to reflect app-user status
-        if (action.payload === true) {
-          state.isAuthenticated = true;
-          state.redirecting = false;
-        } else {
-          state.isAuthenticated = false;
-          state.redirecting = true;
-        }
-      });
-      builder.addCase(getIsAppUserThunk.rejected, (state, action) => {
-        state.getIsAppUserLoading = false;
-        state.error = typeof action.payload === 'string' ? action.payload : 'Error';
         state.isAuthenticated = false;
         state.redirecting = true;
       });
