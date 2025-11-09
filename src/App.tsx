@@ -7,6 +7,7 @@ import AppRoutes from "./app/AppRoutes";
 import Loading from "./components/common/loading/Loading";
 import { selectGetisAppUserLoading } from "./features/auth/authSelectors";
 import { useSelector } from "react-redux";
+import { refreshAccessToken } from "./services/auth/authService";
 
 const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
@@ -38,9 +39,16 @@ function App() {
           await (dispatch as any)(fetchCurrentUser()).unwrap();
           setAuthReady(true);
         } catch (_e) {
-          const redirectUri = encodeURIComponent(window.location.href);
-          window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
-          return;
+          // try one refresh cycle then retry /me
+          try {
+            await refreshAccessToken();
+            await (dispatch as any)(fetchCurrentUser()).unwrap();
+            setAuthReady(true);
+          } catch {
+            const redirectUri = encodeURIComponent(window.location.href);
+            window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+            return;
+          }
         }
       } catch (err) {
         if (!mounted) return;
@@ -68,7 +76,18 @@ function App() {
           window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
           return;
         }
-        dispatch(fetchCurrentUser());
+        try {
+          await (dispatch as any)(fetchCurrentUser()).unwrap();
+        } catch {
+          try {
+            await refreshAccessToken();
+            await (dispatch as any)(fetchCurrentUser()).unwrap();
+          } catch {
+            const redirectUri = encodeURIComponent(window.location.href);
+            window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+            return;
+          }
+        }
       } catch (_e) {
         const redirectUri = encodeURIComponent(window.location.href);
         window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
