@@ -46,18 +46,28 @@ const authSlice = createSlice({
         state.redirecting = true;
       });
 
-      // getIsSuperAdmin
+      // getIsAppUser
       builder.addCase(getIsAppUserThunk.pending, (state) => {
           state.getIsAppUserLoading = true;
           state.error = null;
       });
-      builder.addCase(getIsAppUserThunk.fulfilled, (state, action) => {
-          state.getIsAppUserLoading = false;
-          state.IsAppUser = action.payload;
+      builder.addCase(getIsAppUserThunk.fulfilled, (state, action: PayloadAction<boolean>) => {
+        state.getIsAppUserLoading = false;
+        state.IsAppUser = action.payload;
+        // Use boolean payload directly to reflect app-user status
+        if (action.payload === true) {
+          state.isAuthenticated = true;
+          state.redirecting = false;
+        } else {
+          state.isAuthenticated = false;
+          state.redirecting = true;
+        }
       });
       builder.addCase(getIsAppUserThunk.rejected, (state, action) => {
-          state.getIsAppUserLoading = false;
-          state.error = typeof action.payload === 'string' ? action.payload : 'Error';
+        state.getIsAppUserLoading = false;
+        state.error = typeof action.payload === 'string' ? action.payload : 'Error';
+        state.isAuthenticated = false;
+        state.redirecting = true;
       });
 
     // Logout User

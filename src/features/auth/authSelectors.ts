@@ -5,4 +5,4 @@ export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenti
 export const selectRedirecting = (state: RootState) => state.auth.redirecting;
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectIsAppUser = (state: RootState) => state.auth.IsAppUser;
-export const selectGetisAppUserLoading = (state: RootState) => state.auth.getIsAppUserLoading;
+export const selectGetIsAppUserLoading = (state: RootState) => state.auth.getIsAppUserLoading;
