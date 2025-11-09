@@ -5,7 +5,7 @@ import { fetchCurrentUser, getIsAppUserThunk } from "./features/auth/authThunks"
 import NavsAndTabs from "./components/common/navBarTabs/NavsBarTabs";
 import AppRoutes from "./app/AppRoutes";
 import Loading from "./components/common/loading/Loading";
-import { selectGetisAppUserLoading } from "./features/auth/authSelectors";
+import { selectGetisAppUserLoading, selectIsAppUser } from "./features/auth/authSelectors";
 import { useSelector } from "react-redux";
 import { refreshAccessToken } from "./services/auth/authService";
 
@@ -15,54 +15,48 @@ function App() {
   const dispatch = useAppDispatch();
   const { loading, isAuthenticated } = useAppSelector((state) => state.auth);
   const isAppUserLoading = useSelector(selectGetisAppUserLoading);
+  const isAppUser = useSelector(selectIsAppUser);
   const [hasChecked, setHasChecked] = useState(false);
   const [authReady, setAuthReady] = useState(false);
 
-  // initial is-app-user check -> if false redirect immediately, if true call /me
+  // initial is-app-user check -> only set hasChecked when API completes
   useEffect(() => {
     let mounted = true;
     (async () => {
-      try {
-        const isAppUserResult: boolean = await (dispatch as any)(getIsAppUserThunk()).unwrap();
-        if (!mounted) return;
-
-        setHasChecked(true);
-
-        if (!isAppUserResult) {
-          const redirectUri = encodeURIComponent(window.location.href);
-          window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
-          return;
-        }
-
-        // confirmed app user -> fetch current user
-        try {
-          await (dispatch as any)(fetchCurrentUser()).unwrap();
-          setAuthReady(true);
-        } catch (_e) {
-          // try one refresh cycle then retry /me
-          try {
-            await refreshAccessToken();
-            await (dispatch as any)(fetchCurrentUser()).unwrap();
-            setAuthReady(true);
-          } catch {
-            const redirectUri = encodeURIComponent(window.location.href);
-            window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
-            return;
-          }
-        }
-      } catch (err) {
-        if (!mounted) return;
-        setHasChecked(true);
-        const redirectUri = encodeURIComponent(window.location.href);
-        window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
-        return;
-      }
+      await (dispatch as any)(getIsAppUserThunk());
+      if (!mounted) return;
+      setHasChecked(true);
     })();
 
     return () => {
       mounted = false;
     };
   }, [dispatch]);
+
+  // After initial check, decide once based on Redux state: redirect or load user
+  useEffect(() => {
+    if (!hasChecked) return;
+    (async () => {
+      if (!isAppUser) {
+        const redirectUri = encodeURIComponent(window.location.href);
+        window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+        return;
+      }
+      try {
+        await (dispatch as any)(fetchCurrentUser()).unwrap();
+        setAuthReady(true);
+      } catch (_e) {
+        try {
+          await refreshAccessToken();
+          await (dispatch as any)(fetchCurrentUser()).unwrap();
+          setAuthReady(true);
+        } catch {
+          const redirectUri = encodeURIComponent(window.location.href);
+          window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+        }
+      }
+    })();
+  }, [dispatch, hasChecked, isAppUser]);
 
   // revalidation hooks: only after initial /me succeeded
   useEffect(() => {
