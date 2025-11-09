@@ -68,9 +68,6 @@ function App() {
       }
     };
 
-    // initial revalidate when the check has completed
-    revalidate();
-
     window.addEventListener("focus", revalidate);
 
     const onVisibility = () => {
