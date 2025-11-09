@@ -23,8 +23,7 @@ function App() {
     let mounted = true;
     (async () => {
       try {
-        const action = await (dispatch as any)(getIsAppUserThunk());
-        const isAppUserResult: boolean = action?.payload ?? false;
+        const isAppUserResult: boolean = await (dispatch as any)(getIsAppUserThunk()).unwrap();
         if (!mounted) return;
 
         setHasChecked(true);
@@ -42,6 +41,7 @@ function App() {
         setHasChecked(true);
         const redirectUri = encodeURIComponent(window.location.href);
         window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+        return;
       }
     })();
 
@@ -56,8 +56,7 @@ function App() {
 
     const revalidate = async () => {
       try {
-        const action = await (dispatch as any)(getIsAppUserThunk());
-        const isAppUserResult: boolean = action?.payload ?? false;
+        const isAppUserResult: boolean = await (dispatch as any)(getIsAppUserThunk()).unwrap();
         if (!isAppUserResult) {
           const redirectUri = encodeURIComponent(window.location.href);
           window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
@@ -67,6 +66,7 @@ function App() {
       } catch (_e) {
         const redirectUri = encodeURIComponent(window.location.href);
         window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+        return;
       }
     };
 
