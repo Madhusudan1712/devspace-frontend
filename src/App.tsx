@@ -5,7 +5,7 @@ import { fetchCurrentUser, getIsAppUserThunk } from "./features/auth/authThunks"
 import NavsAndTabs from "./components/common/navBarTabs/NavsBarTabs";
 import AppRoutes from "./app/AppRoutes";
 import Loading from "./components/common/loading/Loading";
-import { selectGetisAppUserLoading, selectIsAppUser } from "./features/auth/authSelectors";
+import { selectGetisAppUserLoading } from "./features/auth/authSelectors";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,6 @@ function App() {
   const dispatch = useAppDispatch();
   const { loading, isAuthenticated, redirecting } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-  const isAppUser = useSelector(selectIsAppUser);
   const isAppUserLoading = useSelector(selectGetisAppUserLoading);
   const [hasChecked, setHasChecked] = useState(false);
 
@@ -24,8 +23,8 @@ function App() {
     let mounted = true;
     (async () => {
       try {
-        const isAppUserResult: boolean = await (dispatch as any)(getIsAppUserThunk()).unwrap?.()
-          ?? (await (dispatch as any)(getIsAppUserThunk())).payload ?? false;
+        const action = await (dispatch as any)(getIsAppUserThunk());
+        const isAppUserResult: boolean = action?.payload ?? false;
         if (!mounted) return;
 
         setHasChecked(true);
@@ -57,8 +56,8 @@ function App() {
 
     const revalidate = async () => {
       try {
-        const isAppUserResult: boolean = await (dispatch as any)(getIsAppUserThunk()).unwrap?.()
-          ?? (await (dispatch as any)(getIsAppUserThunk())).payload ?? false;
+        const action = await (dispatch as any)(getIsAppUserThunk());
+        const isAppUserResult: boolean = action?.payload ?? false;
         if (!isAppUserResult) {
           const redirectUri = encodeURIComponent(window.location.href);
           window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
