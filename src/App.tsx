@@ -7,14 +7,12 @@ import AppRoutes from "./app/AppRoutes";
 import Loading from "./components/common/loading/Loading";
 import { selectGetisAppUserLoading } from "./features/auth/authSelectors";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const AUTH_UI_URL = import.meta.env.VITE_AUTH_UI_URL;
 
 function App() {
   const dispatch = useAppDispatch();
-  const { loading, isAuthenticated, redirecting } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
+  const { loading, isAuthenticated } = useAppSelector((state) => state.auth);
   const isAppUserLoading = useSelector(selectGetisAppUserLoading);
   const [hasChecked, setHasChecked] = useState(false);
 
@@ -48,7 +46,7 @@ function App() {
     return () => {
       mounted = false;
     };
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   // revalidation hooks: only fetch /me when we know the user is an app user
   useEffect(() => {
@@ -97,14 +95,7 @@ function App() {
     return <Loading />;
   }
 
-  useEffect(() => {
-    if (redirecting) {
-      const redirectUri = encodeURIComponent(window.location.href);
-      window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
-    }
-  }, [redirecting]);
-
-  if (loading || redirecting) return <Loading />;
+  if (loading) return <Loading />;
   if (!isAuthenticated) return null;
 
   return (
