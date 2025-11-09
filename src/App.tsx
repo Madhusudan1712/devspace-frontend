@@ -35,7 +35,7 @@ function App() {
 
   // After initial check, decide once based on Redux state: redirect or load user
   useEffect(() => {
-    if (!hasChecked) return;
+    if (!hasChecked || isAppUserLoading) return;
     (async () => {
       if (!isAppUser) {
         const redirectUri = encodeURIComponent(window.location.href);
@@ -56,7 +56,7 @@ function App() {
         }
       }
     })();
-  }, [dispatch, hasChecked, isAppUser]);
+  }, [dispatch, hasChecked, isAppUser, isAppUserLoading]);
 
   // revalidation hooks: only after initial /me succeeded
   useEffect(() => {
