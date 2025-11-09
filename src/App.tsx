@@ -15,6 +15,7 @@ function App() {
   const { loading, isAuthenticated } = useAppSelector((state) => state.auth);
   const isAppUserLoading = useSelector(selectGetisAppUserLoading);
   const [hasChecked, setHasChecked] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
 
   // initial is-app-user check -> if false redirect immediately, if true call /me
   useEffect(() => {
@@ -33,7 +34,14 @@ function App() {
         }
 
         // confirmed app user -> fetch current user
-        dispatch(fetchCurrentUser());
+        try {
+          await (dispatch as any)(fetchCurrentUser()).unwrap();
+          setAuthReady(true);
+        } catch (_e) {
+          const redirectUri = encodeURIComponent(window.location.href);
+          window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+          return;
+        }
       } catch (err) {
         if (!mounted) return;
         setHasChecked(true);
@@ -48,9 +56,9 @@ function App() {
     };
   }, [dispatch]);
 
-  // revalidation hooks: only fetch /me when we know the user is an app user
+  // revalidation hooks: only after initial /me succeeded
   useEffect(() => {
-    if (!hasChecked) return;
+    if (!authReady) return;
 
     const revalidate = async () => {
       try {
@@ -85,7 +93,7 @@ function App() {
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("storage", onStorage);
     };
-  }, [dispatch, hasChecked]);
+  }, [dispatch, authReady]);
 
   // show loading while checking isAppUser or its loading state
   if (!hasChecked || isAppUserLoading) {
