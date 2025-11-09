@@ -15,7 +15,6 @@ function App() {
   const dispatch = useAppDispatch();
   const { loading, isAuthenticated } = useAppSelector((state) => state.auth);
   const isAppUserLoading = useSelector(selectGetisAppUserLoading);
-  const isAppUser = useSelector(selectIsAppUser);
   const [hasChecked, setHasChecked] = useState(false);
   const [authReady, setAuthReady] = useState(false);
 
