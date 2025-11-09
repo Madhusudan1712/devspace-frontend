@@ -24,8 +24,8 @@ function App() {
     let mounted = true;
     (async () => {
       try {
-        const action = await (dispatch as any)(getIsAppUserThunk());
-        const isAppUserResult = action?.payload ?? false;
+        const isAppUserResult: boolean = await (dispatch as any)(getIsAppUserThunk()).unwrap?.()
+          ?? (await (dispatch as any)(getIsAppUserThunk())).payload ?? false;
         if (!mounted) return;
 
         setHasChecked(true);
@@ -53,13 +53,25 @@ function App() {
 
   // revalidation hooks: only fetch /me when we know the user is an app user
   useEffect(() => {
-    if (!isAppUser) return;
+    if (!hasChecked) return;
 
-    const revalidate = () => {
-      dispatch(fetchCurrentUser());
+    const revalidate = async () => {
+      try {
+        const isAppUserResult: boolean = await (dispatch as any)(getIsAppUserThunk()).unwrap?.()
+          ?? (await (dispatch as any)(getIsAppUserThunk())).payload ?? false;
+        if (!isAppUserResult) {
+          const redirectUri = encodeURIComponent(window.location.href);
+          window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+          return;
+        }
+        dispatch(fetchCurrentUser());
+      } catch (_e) {
+        const redirectUri = encodeURIComponent(window.location.href);
+        window.location.href = `${AUTH_UI_URL}/auth?redirect=${redirectUri}`;
+      }
     };
 
-    // initial revalidate when isAppUser becomes true
+    // initial revalidate when the check has completed
     revalidate();
 
     window.addEventListener("focus", revalidate);
@@ -79,7 +91,7 @@ function App() {
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("storage", onStorage);
     };
-  }, [dispatch, isAppUser]);
+  }, [dispatch, hasChecked]);
 
   // show loading while checking isAppUser or its loading state
   if (!hasChecked || isAppUserLoading) {
