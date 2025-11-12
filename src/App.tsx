@@ -30,7 +30,7 @@ function App() {
     document.addEventListener("visibilitychange", onVisibility);
 
     // revalidate when localStorage changes in other tabs (e.g., logout/login)
-    const onStorage = (e: StorageEvent) => {
+    const onStorage = () => {
       // optionally, only react to auth-related keys. Revalidate anyway to be safe.
       revalidate();
     };
