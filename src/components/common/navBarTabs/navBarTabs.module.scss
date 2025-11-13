@@ -1,3 +1,5 @@
+@use '../../../style/variable' as variable;
+
 /* AppBar and Toolbar */
 .appbar {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -19,7 +21,7 @@
 }
 
 .tab-link {
-  color: #F6F8D5; /* Level 1 */
+  color: variable.$color-white;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 500;
@@ -30,12 +32,12 @@
 }
 
 .tab-link:hover {
-  color: #98D2C0; /* Level 2 */
+  color: variable.$color-accent;
   transform: scale(1.05);
 }
 
 .active {
-  color: #98D2C0; /* Level 2 */
+  color: variable.$color-accent;
   font-weight: 700;
 }
 
@@ -43,14 +45,14 @@
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color: #98D2C0; /* Level 2 */
+  background-color: variable.$color-accent;
   transition: left 0.3s ease, width 0.3s ease;
 }
 
 /* Drawer for Mobile */
 .drawer {
-  background-color: #205781; /* Level 4 */
-  color: #F6F8D5; /* Level 1 */
+  background-color: variable.$color-secondary;
+  color: variable.$color-white;
   width: 250px;
   padding: 20px;
 }
@@ -59,7 +61,7 @@
   display: block;
   position: relative;
   padding-bottom: 6px;
-  color: #F6F8D5; /* Level 1 */
+  color: variable.$color-white;
   text-decoration: none;
   font-size: 1.1rem;
   margin-bottom: 15px;
@@ -67,17 +69,17 @@
 }
 
 .drawer-link:hover {
-  color: #98D2C0; 
+  color: variable.$color-accent; 
 }
 
 .drawer-link:focus {
-  background-color: #4F959D; 
+  background-color: variable.$color-accent; 
 }
 
 .drawer-link.active {
   font-weight: 700;
-  color: #98D2C0; 
-  background-color: #4F959D; 
+  color: variable.$color-accent; 
+  background-color: variable.$color-accent; 
   padding: 6px 8px;
 }
 
@@ -87,7 +89,7 @@
   bottom: 0;
   height: 2px;
   width: 100%;
-  background-color: #98D2C0; 
+  background-color: variable.$color-accent; 
   transition: background-color 0.3s ease;
 }
 

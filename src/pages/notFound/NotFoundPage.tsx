@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import styles from "./notFoundPage.module.css";
+import styles from "./notFoundPage.module.scss";
 
 export default function NotFoundPage() {
   return (

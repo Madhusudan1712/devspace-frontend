@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import styles from './appTitle.module.css';
+import styles from './appTitle.module.scss';
 
 const AppTitle: React.FC = () => {
   return (

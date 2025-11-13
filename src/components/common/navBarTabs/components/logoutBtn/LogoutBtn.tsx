@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import styles from './logoutBtn.module.css';
+import styles from './logoutBtn.module.scss';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const handleLogout = () => {

@@ -10,7 +10,7 @@ import { Menu as MenuIcon } from "@mui/icons-material";
 import { tabsData } from "./TabsData.ts";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import styles from "./navBarTabs.module.css";
+import styles from "./navBarTabs.module.scss";
 import AppTitle from "./components/appTitle/AppTitle.tsx";
 import AccountSection from "./userMenu/AccountSection.tsx";
 

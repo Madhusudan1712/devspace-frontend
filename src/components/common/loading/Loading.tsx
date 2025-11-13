@@ -1,5 +1,5 @@
 // src/components/Loading/Loading.tsx
-import styles from './loading.module.css';
+import styles from './loading.module.scss';
 
 const Loading = () => {
   return (
