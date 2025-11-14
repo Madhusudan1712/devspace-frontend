@@ -1,96 +1,141 @@
 @use '../../../style/variable' as variable;
 
+/* Easing + local tokens */
+$ease-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+$transition-fast: 160ms $ease-spring;
+$transition-med: 220ms $ease-spring;
+
 /* AppBar and Toolbar */
 .appbar {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: variable.$color-secondary;
+  color: variable.$color-primary;
+  backdrop-filter: saturate(120%) blur(6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  padding-block: 10px;
 }
 
-/* Desktop Tabs */
+/* Desktop Tabs (segmented control look) */
 .navbar-tabs {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 12px;
   position: relative;
   margin-left: auto;
+  padding: 6px;
+  background-color: rgba(variable.$color-white, 0.6);
+  border: 1px solid variable.$color-border;
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .tab-link {
-  color: variable.$color-white;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 500;
   position: relative;
-  padding-bottom: 10px;
-  text-transform: uppercase;
-  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  color: variable.$color-primary;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border-radius: 999px;
+  transition: color $transition-fast, transform $transition-fast, background-color $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    color: variable.$color-primary;
+    background-color: rgba(variable.$color-accent, 0.12);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(variable.$color-accent, 0.35);
+  }
 }
 
-.tab-link:hover {
-  color: variable.$color-accent;
-  transform: scale(1.05);
-}
-
+/* Active pill */
 .active {
-  color: variable.$color-accent;
-  font-weight: 700;
+  color: variable.$color-primary;
+  background-color: variable.$color-white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid variable.$color-border;
 }
 
+/* Underline indicator with spring-like movement */
 .tab-underline {
   position: absolute;
-  bottom: 0;
-  height: 2px;
+  bottom: -6px;
+  height: 4px;
   background-color: variable.$color-accent;
-  transition: left 0.3s ease, width 0.3s ease;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition:
+    left $transition-med,
+    width $transition-med,
+    background-color $transition-fast,
+    transform $transition-med;
+  will-change: left, width, transform;
 }
 
 /* Drawer for Mobile */
 .drawer {
-  background-color: variable.$color-secondary;
+  background-color: variable.$color-primary;
   color: variable.$color-white;
-  width: 250px;
+  width: 280px;
   padding: 20px;
 }
 
 .drawer-link {
   display: block;
   position: relative;
-  padding-bottom: 6px;
-  color: variable.$color-white;
+  padding: 10px 12px;
+  color: rgba(variable.$color-white, 0.9);
   text-decoration: none;
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-  transition: color 0.3s ease;
-}
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  transition: color $transition-fast, background-color $transition-fast, transform $transition-fast;
 
-.drawer-link:hover {
-  color: variable.$color-accent; 
-}
+  &:hover {
+    color: variable.$color-white;
+    background-color: rgba(255, 255, 255, 0.08);
+  }
 
-.drawer-link:focus {
-  background-color: variable.$color-accent; 
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+  }
 }
 
 .drawer-link.active {
-  font-weight: 700;
-  color: variable.$color-accent; 
-  background-color: variable.$color-accent; 
-  padding: 6px 8px;
+  color: variable.$color-white;
+  background-color: rgba(255, 255, 255, 0.16);
 }
 
 .drawer-underline {
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 2px;
+  height: 3px;
   width: 100%;
-  background-color: variable.$color-accent; 
-  transition: background-color 0.3s ease;
+  background-color: variable.$color-accent;
+  border-radius: 3px;
+  transition: background-color $transition-fast;
+}
+
+.drawer-admin-button {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 /* Responsive */
@@ -100,5 +145,9 @@
     gap: 12px;
     align-items: flex-start;
     margin-top: 10px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
   }
 }

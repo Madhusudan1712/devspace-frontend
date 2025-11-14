@@ -48,7 +48,7 @@ const NavsBarTabs = () => {
         <Box
           className={styles.drawer}
           role="presentation"
-          onClick={handleDrawerToggle} // ✅ Now normal clicks close drawer
+          onClick={handleDrawerToggle} 
         >
           {tabsData.map((tab) => {
             const isActive = currentPath.startsWith(tab.path);

@@ -1,4 +1,5 @@
-@use './variable.scss';
+@use './variable' as *;
+@use 'sass:color';
 
 /* CSS custom properties (for future theming runtime toggles) */
 :root {
@@ -115,7 +116,7 @@ a {
   }
 
   &--alt {
-    background-color: mix($color-background, $color-white, 70%);
+    background-color: color.mix($color-background, $color-white, 70%);
   }
 }
 
@@ -195,7 +196,7 @@ a {
     // Hover accent as requested
     background-color: $color-accent;
     color: $color-primary;
-    border-color: mix($color-accent, $color-primary, 60%);
+    border-color: color.mix($color-accent, $color-primary, 60%);
   }
 
   &:focus-visible {
@@ -210,7 +211,7 @@ a {
   border-color: transparent;
 
   &:hover {
-    background-color: mix($color-secondary, $color-primary, 70%);
+    background-color: color.mix($color-secondary, $color-primary, 70%);
   }
 }
 
@@ -220,7 +221,7 @@ a {
   border-color: transparent;
 
   &:hover {
-    background-color: mix($color-accent, $color-primary, 70%);
+    background-color: color.mix($color-accent, $color-primary, 70%);
     color: $color-white;
   }
 }
