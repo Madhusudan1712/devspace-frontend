@@ -7,8 +7,8 @@ $transition-med: 220ms $ease-spring;
 
 /* AppBar and Toolbar */
 .appbar {
-  background-color: variable.$color-secondary;
-  color: variable.$color-primary;
+  background-color: variable.$color-secondary !important;
+  color: variable.$color-primary !important;
   backdrop-filter: saturate(120%) blur(6px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
@@ -87,38 +87,44 @@ $transition-med: 220ms $ease-spring;
 
 /* Drawer for Mobile */
 .drawer {
-  background-color: variable.$color-primary;
-  color: variable.$color-white;
-  width: 280px;
+  background-color: rgba(variable.$color-secondary, 0.6) !important;
+  color: variable.$color-primary !important;
+  width: 200px;
+  height: 100%;
   padding: 20px;
+  border: 1px solid variable.$color-border;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .drawer-link {
   display: block;
   position: relative;
   padding: 10px 12px;
-  color: rgba(variable.$color-white, 0.9);
+  color: variable.$color-primary;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 10px;
   margin-bottom: 6px;
-  transition: color $transition-fast, background-color $transition-fast, transform $transition-fast;
+  border: 1px solid transparent;
+  transition: color $transition-fast, background-color $transition-fast, box-shadow $transition-fast, border-color $transition-fast, transform $transition-fast;
 
   &:hover {
-    color: variable.$color-white;
-    background-color: rgba(255, 255, 255, 0.08);
+    color: variable.$color-primary;
+    background-color: rgba(variable.$color-accent, 0.12);
   }
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(variable.$color-accent, 0.35);
   }
 }
 
 .drawer-link.active {
-  color: variable.$color-white;
-  background-color: rgba(255, 255, 255, 0.16);
+  color: variable.$color-primary;
+  background-color: variable.$color-white;
+  border: 1px solid variable.$color-border;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .drawer-underline {

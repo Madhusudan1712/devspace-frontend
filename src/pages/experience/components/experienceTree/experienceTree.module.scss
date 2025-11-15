@@ -1,0 +1,195 @@
+@use '../../../../style/variable' as variable;
+@use 'sass:color';
+
+.experience-tree {
+  margin: variable.$space-6 auto;
+  padding-inline: variable.$space-4;
+  max-width: 920px;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Group item (one marker per company) */
+.group {
+  position: relative;
+  /* Anchor for all left-line calculations */
+  --group-pad-left: 56px;
+  --line-x: 28px;
+  --elbow-w: 30px;
+  --elbow-h: 20px;
+  padding-left: var(--group-pad-left);
+  margin-bottom: variable.$space-6;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: var(--line-x); /* align with marker center */
+    top: 0;
+    bottom: -12px;
+    width: 2px;
+    background: variable.$color-border;
+    border-radius: 2px;
+  }
+}
+
+/* Company marker (brand circle) */
+.marker {
+  position: absolute;
+  left: 14px;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  color: variable.$color-white;
+  background: variable.$color-accent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  border: 2px solid color.mix(variable.$color-accent, variable.$color-white, 55%);
+
+  .brandIcon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+}
+
+.connector {
+  position: absolute;
+  left: var(--line-x); /* align with marker center */
+  top: 32px;  /* start just below the marker */
+  bottom: -12px;
+  width: 2px;
+  background: variable.$color-border;
+}
+
+.block {
+  padding-top: 2px;
+}
+
+.companyRow {
+  position: relative;
+  margin-bottom: 2px;
+  /* Elbow moved to .roles::before to point into the role section */
+}
+
+.company {
+  color: variable.$color-primary;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.companyLine {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.companyMeta {
+  color: variable.$color-muted;
+  font-weight: 600;
+}
+
+.roles {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.roleItem {
+  margin: 8px 0 0;
+  position: relative;
+}
+
+/* Curved elbow from the vertical line into each role entry */
+.roleItem::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--line-x) - var(--group-pad-left));
+  top: -4px;
+  width: var(--elbow-w);
+  height: var(--elbow-h);
+  border-left: 2px solid variable.$color-border;
+  border-bottom: 2px solid variable.$color-border;
+  border-bottom-left-radius: 14px;
+  pointer-events: none;
+}
+
+.roleItem:first-child::before {
+  top: -6px; /* slight lift for first item to meet the title baseline */
+}
+
+.roleTitle {
+  margin: 0;
+  color: variable.$color-primary;
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+.roleKind {
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color.mix(variable.$color-secondary, variable.$color-white, 80%);
+  color: variable.$color-primary;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.muted .roleTitle {
+  color: color.mix(variable.$color-primary, variable.$color-secondary, 35%);
+  font-weight: 700;
+}
+
+.badgeVerified {
+  margin-left: 8px;
+  color: color.mix(variable.$color-accent, variable.$color-primary, 30%);
+  font-size: 1rem;
+}
+
+.badgeFeatured {
+  margin-left: 8px;
+  color: color.mix(variable.$color-accent, variable.$color-primary, 45%);
+  font-size: 1rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: variable.$color-muted;
+  margin-top: 4px;
+}
+
+.dot {
+  margin-inline: 4px;
+}
+
+.bullets {
+  margin: 6px 0 0 1.25rem;
+  padding: 0;
+  color: variable.$color-text;
+  li { margin: 2px 0; }
+}
+
+/* Responsive refinements */
+@include variable.respond-to(md) {
+  .roleTitle { font-size: 1.35rem; }
+  .group { --group-pad-left: 64px; padding-left: var(--group-pad-left); --line-x: 30px; --elbow-w: 34px; --elbow-h: 22px; }
+  .marker { left: 16px; }
+  .group::before, .connector { left: var(--line-x); }
+}

@@ -1,6 +1,10 @@
+import ExperienceTree from "./components/experienceTree/ExperienceTree";
+
 function ExperiencePage() {
   return (
-    <div>ExperiencePage</div>
+    <>
+      <ExperienceTree />
+    </>
   )
 }
 

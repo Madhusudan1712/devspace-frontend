@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Design tokens and helpers for the light theme
 // Keep these generic so we can swap values for dark mode later.
 
@@ -59,7 +61,7 @@ $breakpoints: (
 );
 
 @mixin respond-to($breakpoint) {
-  $value: map-get($breakpoints, $breakpoint);
+  $value: map.get($breakpoints, $breakpoint);
   @if $value {
     @media (min-width: $value) { @content; }
   }
