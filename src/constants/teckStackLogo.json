@@ -1,0 +1,72 @@
+[
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
+		"alt": "JavaScript",
+		"href": "https://developer.mozilla.org/docs/Web/JavaScript"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg",
+		"alt": "React",
+		"href": "https://react.dev"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg",
+		"alt": "Bootstrap",
+		"href": "https://getbootstrap.com"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg",
+		"alt": "Java",
+		"href": "https://www.java.com"
+	},
+	{
+		"src": "https://www.vectorlogo.zone/logos/springio/springio-icon.svg",
+		"alt": "Spring",
+		"href": "https://spring.io"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg",
+		"alt": "Node.js",
+		"href": "https://nodejs.org"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg",
+		"alt": "MongoDB",
+		"href": "https://www.mongodb.com"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg",
+		"alt": "PostgreSQL",
+		"href": "https://www.postgresql.org"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg",
+		"alt": "MySQL",
+		"href": "https://www.mysql.com"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg",
+		"alt": "Docker",
+		"href": "https://www.docker.com"
+	},
+	{
+		"src": "https://www.vectorlogo.zone/logos/kubernetes/kubernetes-icon.svg",
+		"alt": "Kubernetes",
+		"href": "https://kubernetes.io"
+	},
+	{
+		"src": "https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg",
+		"alt": "Git",
+		"href": "https://git-scm.com"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+		"alt": "AWS",
+		"href": "https://aws.amazon.com"
+	},
+	{
+		"src": "https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg",
+		"alt": "C#",
+		"href": "https://learn.microsoft.com/dotnet/csharp/"
+	}
+]
