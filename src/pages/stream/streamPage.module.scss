@@ -1,0 +1,55 @@
+@use '../../style/variable' as *;
+
+.streamPage {
+  padding: $space-6 0;
+  min-height: 100vh;
+
+  @include respond-to(md) {
+    padding: $space-8 0;
+  }
+}
+
+.header {
+  margin-bottom: $space-6;
+  padding: 0 $space-4;
+
+  @include respond-to(md) {
+    margin-bottom: $space-7;
+  }
+}
+
+.pageTitle {
+  color: $color-primary;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 0;
+  font-size: 1.75rem;
+  line-height: 1.2;
+
+  @include respond-to(md) {
+    font-size: 2.25rem;
+  }
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-7;
+  max-width: 100%;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-8;
+  }
+
+  @include respond-to(xl) {
+    gap: 3.5rem;
+  }
+}
+
+.cardWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+

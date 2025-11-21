@@ -1,7 +1,11 @@
 import { useEffect } from "react";
+import { Box, Container, Typography } from "@mui/material";
 import Loading from "../../components/common/loading/Loading";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { fetchCurrentUser } from "../../features/auth/authThunks";
+import StreamCard from "./components/streamCard/StreamCard";
+import { sampleCards } from "./components/streamCard/streamData";
+import styles from "./StreamPage.module.scss";
 
 function StreamPage() {
   const dispatch = useAppDispatch();
@@ -22,20 +26,21 @@ function StreamPage() {
   if (loading) return <Loading />;
 
   return (
-    <div>
-      <h1>Stream Page</h1>
-      {user ? (
-        <div>
-          <p><strong>Name:</strong> {user.name}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>ID:</strong> {user.id}</p>
-          <p><strong>Domain:</strong> {user.application}</p>
-          <p><strong>Role:</strong> Mutiple roles </p>
-        </div>
-      ) : (
-        <p>No user info found.</p>
-      )}
-    </div>
+    <Container maxWidth="xl" className={styles.streamPage}>
+      <Box className={styles.header}>
+        <Typography variant="h2" component="h1" className={styles.pageTitle}>
+          Latest Articles
+        </Typography>
+      </Box>
+
+      <Box className={styles.cardGrid}>
+        {sampleCards.map((card) => (
+          <Box key={card.id} className={styles.cardWrapper}>
+            <StreamCard data={card} />
+          </Box>
+        ))}
+      </Box>
+    </Container>
   );
 }
 
