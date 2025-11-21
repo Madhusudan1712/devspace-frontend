@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { fetchCurrentUser } from "../../features/auth/authThunks";
 import StreamCard from "./components/streamCard/StreamCard";
 import { sampleCards } from "./components/streamCard/streamData";
-import styles from "./StreamPage.module.scss";
+import styles from "./streamPage.module.scss";
 
 function StreamPage() {
   const dispatch = useAppDispatch();
