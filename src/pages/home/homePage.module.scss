@@ -1,0 +1,42 @@
+@use '../../style/variable' as *;
+
+.homePage {
+  padding: $space-5 $space-4;
+  min-height: 100vh;
+
+  @include respond-to(md) {
+    padding: $space-6 $space-5;
+  }
+}
+
+.header {
+  margin-bottom: $space-5;
+
+  @include respond-to(md) {
+    margin-bottom: $space-6;
+  }
+}
+
+.pageTitle {
+  color: $color-primary !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 0 !important;
+  font-size: 1.5rem !important;
+  line-height: 1.2 !important;
+
+  @include respond-to(md) {
+    font-size: 1.875rem !important;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+
+  @include respond-to(md) {
+    gap: $space-6;
+  }
+}
+

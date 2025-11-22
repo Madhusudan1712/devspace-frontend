@@ -28,7 +28,7 @@ function StreamPage() {
   return (
     <Container maxWidth="xl" className={styles.streamPage}>
       <Box className={styles.header}>
-        <Typography variant="h2" component="h1" className={styles.pageTitle}>
+        <Typography variant="h4" component="h1" className={styles.pageTitle}>
           Latest Articles
         </Typography>
       </Box>
