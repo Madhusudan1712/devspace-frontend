@@ -1,5 +1,6 @@
-import { Box, Typography, Button, IconButton } from '@mui/material';
+import { Box, Typography, IconButton } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
+import AppButton from '@/components/common/button/AppButton';
 import styles from './streamCard.module.scss';
 import { StreamData } from './streamData';
 
@@ -83,14 +84,14 @@ const StreamCard = ({ data, className }: StreamCardProps) => {
 
           {/* Action buttons */}
           <Box className={styles.actionButtons}>
-            <Button 
-              variant="contained" 
+            <AppButton 
+              variant="primary" 
               className={styles.moreButton}
               onClick={handlePrimaryAction}
               aria-label={data.primaryAction.label}
             >
               {data.primaryAction.label}
-            </Button>
+            </AppButton>
             
             {data.secondaryAction && (
               <IconButton 

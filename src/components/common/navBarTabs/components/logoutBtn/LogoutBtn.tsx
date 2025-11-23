@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import AppButton from '@/components/common/button/AppButton';
 import styles from './logoutBtn.module.scss';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -8,24 +8,17 @@ const handleLogout = () => {
 
 const LogoutBtn = () => {
   return (
-    <Button
-      variant="contained"
+    <AppButton
+      variant="primary"
       onClick={handleLogout}
-      disableElevation
       className={styles.loggedOut}
+      startIcon={<LogoutIcon/>}
       sx={{
         width: 90,
-        backgroundColor: '#052a7a',
-        color: '#ffffff',
-        textTransform: 'none',
-        '&:hover': {
-          backgroundColor: '#205781',
-        },
       }}
-      startIcon={<LogoutIcon/>}
     >
       Logout
-    </Button>
+    </AppButton>
   );
 };
 

@@ -2,10 +2,12 @@
 
 .streamPage {
   padding: $space-5 $space-4;
+  padding-bottom: $space-7;
   min-height: 100vh;
 
   @include respond-to(md) {
     padding: $space-6 $space-5;
+    padding-bottom: $space-8;
   }
 }
 

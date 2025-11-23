@@ -1,0 +1,31 @@
+@use '../../../style/variable' as *;
+@use 'sass:color';
+
+// Map SCSS variables to CSS custom properties for use in styled components
+:root {
+  --app-button-primary: #{$color-primary};
+  --app-button-secondary: #{$color-secondary};
+  --app-button-accent: #{$color-accent};
+  --app-button-white: #{$color-white};
+  --app-button-text: #{$color-text};
+  
+  // Darkened versions for hover states (8% darker)
+  --app-button-primary-darken: #{color.adjust($color-primary, $lightness: -8%)};
+  --app-button-secondary-darken: #{color.adjust($color-secondary, $lightness: -8%)};
+  
+  // RGB values for rgba() usage
+  --app-button-primary-rgb: #{color.channel($color-primary, "red", $space: rgb)}, #{color.channel($color-primary, "green", $space: rgb)}, #{color.channel($color-primary, "blue", $space: rgb)};
+  --app-button-secondary-rgb: #{color.channel($color-secondary, "red", $space: rgb)}, #{color.channel($color-secondary, "green", $space: rgb)}, #{color.channel($color-secondary, "blue", $space: rgb)};
+  
+  // Spacing
+  --app-button-padding-x: #{$space-4};
+  --app-button-padding-y: #{$space-2};
+  --app-button-gap: #{$space-2};
+  
+  // Border radius
+  --app-button-radius: #{$radius-sm};
+  
+  // Transitions
+  --app-button-transition: #{$transition-base};
+}
+

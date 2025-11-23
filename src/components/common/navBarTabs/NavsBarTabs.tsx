@@ -9,7 +9,7 @@ import {
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { tabsData } from "./TabsData.ts";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import styles from "./navBarTabs.module.scss";
 import AppTitle from "./components/appTitle/AppTitle.tsx";
 import AccountSection from "./userMenu/AccountSection.tsx";
@@ -18,19 +18,8 @@ const NavsBarTabs = () => {
   const location = useLocation();
   const currentPath = location.pathname === "/" ? "/stream" : location.pathname;
 
-  const underlineRef = useRef<HTMLSpanElement>(null);
-  const tabsRef = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
-  const [underlineStyle, setUnderlineStyle] = useState<React.CSSProperties>({});
   const [openDrawer, setOpenDrawer] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
-
-  useEffect(() => {
-    const activeTab = tabsRef.current[currentPath];
-    if (activeTab) {
-      const { offsetLeft, offsetWidth } = activeTab;
-      setUnderlineStyle({ left: offsetLeft, width: offsetWidth });
-    }
-  }, [currentPath]);
 
   const handleDrawerToggle = () => setOpenDrawer((o) => !o);
 
@@ -56,15 +45,11 @@ const NavsBarTabs = () => {
               <Link
                 key={tab.key}
                 to={tab.path}
-                ref={(el) => {
-                  tabsRef.current[tab.path] = el;
-                }}
                 className={`${styles["drawer-link"]} ${
                   isActive ? styles.active : ""
                 }`}
               >
                 {tab.label}
-                {isActive && <span className={styles["drawer-underline"]} />}
               </Link>
             );
           })}
@@ -88,20 +73,12 @@ const NavsBarTabs = () => {
           <Link
             key={tab.key}
             to={tab.path}
-            ref={(el) => {
-              tabsRef.current[tab.path] = el;
-            }}
             className={`${styles["tab-link"]} ${isActive ? styles.active : ""}`}
           >
             {tab.label}
           </Link>
         );
       })}
-      <span
-        ref={underlineRef}
-        className={styles["tab-underline"]}
-        style={underlineStyle}
-      />
       <AccountSection />
     </Box>
   );
