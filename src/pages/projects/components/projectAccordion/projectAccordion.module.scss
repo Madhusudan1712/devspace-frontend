@@ -122,6 +122,11 @@
   color: $color-white;
 }
 
+.statusLocal {
+  background-color: #4c4caf;
+  color: $color-white;
+}
+
 // Accordion Details
 .accordionDetails {
   padding: $space-4;
@@ -279,13 +284,17 @@
   }
 
   .links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
-    flex-direction: column;
+    gap: $space-2;
+  }
 
-    .linkButton {
-      width: 100%;
-      justify-content: center;
-    }
+  .linkButton {
+    width: auto;
+    justify-content: center;
   }
 }
+
 

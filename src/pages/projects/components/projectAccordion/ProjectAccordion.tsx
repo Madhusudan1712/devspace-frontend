@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -6,21 +6,23 @@ import {
   Box,
   Typography,
   Chip,
-  Tooltip
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LaunchIcon from '@mui/icons-material/Launch';
-import { ProjectData, sampleProjects } from './projectData';
-import styles from './projectAccordion.module.scss';
+  Tooltip,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LaunchIcon from "@mui/icons-material/Launch";
+import { ProjectData, sampleProjects } from "./projectData";
+import styles from "./projectAccordion.module.scss";
 
 interface ProjectAccordionProps {
   projects?: ProjectData[];
 }
 
-const ProjectAccordion = ({ projects = sampleProjects }: ProjectAccordionProps) => {
+const ProjectAccordion = ({
+  projects = sampleProjects,
+}: ProjectAccordionProps) => {
   // Initially expand first 2 projects
-  const [expanded, setExpanded] = useState<string[]>(['1', '2']);
+  const [expanded, setExpanded] = useState<string[]>(["1", "2"]);
 
   const handleChange = (projectId: string) => {
     setExpanded((prev) =>
@@ -30,27 +32,31 @@ const ProjectAccordion = ({ projects = sampleProjects }: ProjectAccordionProps) 
     );
   };
 
-  const getStatusClass = (status: ProjectData['status']) => {
+  const getStatusClass = (status: ProjectData["status"]) => {
     switch (status) {
-      case 'dev':
+      case "dev":
         return styles.statusDev;
-      case 'stg':
+      case "stg":
         return styles.statusStg;
-      case 'prod':
+      case "prod":
         return styles.statusProd;
+      case "local":
+        return styles.statusLocal;
       default:
-        return '';
+        return "";
     }
   };
 
-  const getStatusLabel = (status: ProjectData['status']) => {
+  const getStatusLabel = (status: ProjectData["status"]) => {
     switch (status) {
-      case 'dev':
-        return 'Development';
-      case 'stg':
-        return 'Staging';
-      case 'prod':
-        return 'Production';
+      case "dev":
+        return "Development";
+      case "stg":
+        return "Staging";
+      case "prod":
+        return "Production";
+      case "local":
+        return "Localhost";
       default:
         return status;
     }
@@ -74,10 +80,18 @@ const ProjectAccordion = ({ projects = sampleProjects }: ProjectAccordionProps) 
             className={styles.accordionSummary}
           >
             <Box className={styles.headerContent}>
-              <Typography variant="h6" component="h3" className={styles.projectTitle}>
+              <Typography
+                variant="h6"
+                component="h3"
+                className={styles.projectTitle}
+              >
                 {project.title}
               </Typography>
-              <Box className={`${styles.statusBadge} ${getStatusClass(project.status)}`}>
+              <Box
+                className={`${styles.statusBadge} ${getStatusClass(
+                  project.status
+                )}`}
+              >
                 {getStatusLabel(project.status)}
               </Box>
             </Box>
@@ -108,7 +122,11 @@ const ProjectAccordion = ({ projects = sampleProjects }: ProjectAccordionProps) 
               </Typography>
               <Box component="ul" className={styles.descriptionList}>
                 {project.description.map((item, index) => (
-                  <Box component="li" key={index} className={styles.descriptionItem}>
+                  <Box
+                    component="li"
+                    key={index}
+                    className={styles.descriptionItem}
+                  >
                     <Typography variant="body2" className={styles.description}>
                       {item}
                     </Typography>
@@ -123,24 +141,32 @@ const ProjectAccordion = ({ projects = sampleProjects }: ProjectAccordionProps) 
                 <Typography variant="subtitle2" className={styles.sectionLabel}>
                   Links
                 </Typography>
+
                 <Box className={styles.links}>
-                  {project.links.github && (
-                    <Tooltip title="View on GitHub" arrow>
-                      <Box
-                        component="a"
-                        className={styles.linkButton}
-                        href={project.links.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub repository"
-                      >
-                        <GitHubIcon />
-                        <Typography variant="body2" className={styles.linkText}>
-                          Repository
-                        </Typography>
-                      </Box>
-                    </Tooltip>
-                  )}
+                  {/* GitHub Links */}
+                  {project.links.github &&
+                    Array.isArray(project.links.github) &&
+                    project.links.github.map((repo, idx) => (
+                      <Tooltip key={idx} title="View on GitHub" arrow>
+                        <Box
+                          component="a"
+                          href={repo.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.linkButton}
+                        >
+                          <GitHubIcon />
+                          <Typography
+                            variant="body2"
+                            className={styles.linkText}
+                          >
+                            {repo.label}
+                          </Typography>
+                        </Box>
+                      </Tooltip>
+                    ))}
+
+                  {/* Live App */}
                   {project.links.app && (
                     <Tooltip title="Open Application" arrow>
                       <Box
@@ -169,4 +195,3 @@ const ProjectAccordion = ({ projects = sampleProjects }: ProjectAccordionProps) 
 };
 
 export default ProjectAccordion;
-
