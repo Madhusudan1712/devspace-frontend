@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Icon } from '@iconify/react';
 import styles from './logoSlider.module.scss';
 
 export type LogoItem = {
-	src: string;
+	id: string;
 	alt: string;
 	href?: string;
 };
@@ -18,8 +19,23 @@ export type LogoSliderProps = {
 	ariaLabel?: string;
 	useCssFallback?: boolean;
 	className?: string;
-	imageReferrerPolicy?: React.ImgHTMLAttributes<HTMLImageElement>['referrerPolicy'];
-	imageLoading?: 'lazy' | 'eager';
+};
+
+export const TECH_STACK_ICONS: Record<string, string> = {
+	javascript: 'simple-icons:javascript',
+	react: 'simple-icons:react',
+	bootstrap: 'simple-icons:bootstrap',
+	java: 'logos:java',
+	spring: 'simple-icons:spring',
+	nodejs: 'simple-icons:nodedotjs',
+	mongodb: 'simple-icons:mongodb',
+	postgresql: 'simple-icons:postgresql',
+	mysql: 'simple-icons:mysql',
+	docker: 'simple-icons:docker',
+	kubernetes: 'simple-icons:kubernetes',
+	git: 'simple-icons:git',
+	aws: 'simple-icons:amazonaws',
+	csharp: 'simple-icons:csharp'
 };
 
 const DEFAULT_SPEED_PX_S = 60;
@@ -41,12 +57,10 @@ export function LogoSlider({
 	speed = DEFAULT_SPEED_PX_S,
 	pauseOnHover = true,
 	visibleCount = 6,
-	gap = 24,
+	gap = 10,
 	ariaLabel = 'Logo slider',
 	useCssFallback = false,
-	className,
-	imageReferrerPolicy = 'no-referrer',
-	imageLoading = 'lazy'
+	className
 }: LogoSliderProps) {
 	const viewportRef = useRef<HTMLDivElement | null>(null);
 	const trackRef = useRef<HTMLDivElement | null>(null);
@@ -124,10 +138,6 @@ export function LogoSlider({
 		const handle = () => measure();
 		window.addEventListener('resize', handle);
 		return () => window.removeEventListener('resize', handle);
-	}, [measure]);
-
-	const handleImgLoad = useCallback(() => {
-		measure();
 	}, [measure]);
 
 	const onMouseEnter = useCallback(() => setIsHovering(true), []);
@@ -271,34 +281,20 @@ export function LogoSlider({
 					aria-live="off"
 					data-paused={paused ? 'true' : 'false'}
 					style={cssFallbackStyle}
-				>
+					>
 					{doubledLogos.map((logo, idx) => {
+						const iconName = TECH_STACK_ICONS[logo.id] ?? logo.id;
+
 						const content = (
-							<img
+							<Icon
 								className={styles.image}
-								src={logo.src}
-								alt={logo.alt}
-								loading={imageLoading}
-								decoding="async"
-								referrerPolicy={imageReferrerPolicy}
-								crossOrigin="anonymous"
-								height={56}
-								onLoad={handleImgLoad}
-								onError={(e) => {
-									const placeholder =
-										'data:image/svg+xml;utf8,' +
-										encodeURIComponent(
-											`<svg xmlns="http://www.w3.org/2000/svg" width="120" height="56" viewBox="0 0 120 56">
-												<rect width="120" height="56" fill="#f1f3f5"/>
-												<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#868e96">logo</text>
-											</svg>`
-										);
-									e.currentTarget.src = placeholder;
-								}}
+								icon={iconName}
+								role="img"
+								aria-label={logo.alt}
 							/>
 						);
 						return (
-							<div key={`${logo.src}-${idx}`} className={styles.item} role="listitem">
+							<div key={`${logo.id}-${idx}`} className={styles.item} role="listitem">
 								{logo.href ? (
 									<a
 										className={styles.link}

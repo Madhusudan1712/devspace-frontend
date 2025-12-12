@@ -1,11 +1,4 @@
-/* Minimal styles for the LogoSlider component
-   - Uses CSS variables for gap and visible counts
-   - Flex layout for a fluid, responsive row of logos
-   - Optional CSS animation fallback for continuous scrolling
-*/
-
 .slider {
-	/* wrapper for scoping classes */
 	width: 100%;
 }
 
@@ -61,11 +54,13 @@
 
 .image {
 	display: block;
-	max-height: 56px;
+	/* Iconify SVG inherits font-size and color */
+	font-size: 2.25rem;
+	color: var(--color-primary);
 	width: auto;
 	height: auto;
 	object-fit: contain;
-	/* Prevent image from shrinking oddly in flex context */
+	/* Prevent icon from shrinking oddly in flex context */
 	flex: 0 0 auto;
 }
 
