@@ -13,7 +13,7 @@ interface StreamCardProps {
 }
 
 const StreamCard = forwardRef<HTMLDivElement, StreamCardProps>(
-  ({ data, className, index = 0 }, forwardedRef) => {
+  ({ data, className }, forwardedRef) => {
     const cardRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
     const gradientRef = useRef<HTMLDivElement>(null);
