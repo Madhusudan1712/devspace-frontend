@@ -1,0 +1,321 @@
+@use '../../style/variable' as *;
+@use 'sass:color';
+
+.projectsPage {
+  padding: $space-5 $space-4;
+  padding-bottom: $space-8;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  @include respond-to(md) {
+    padding: $space-6 $space-5;
+    padding-bottom: calc($space-8 * 1.5);
+  }
+}
+
+// ============================================
+// Hero Section
+// ============================================
+.hero {
+  position: relative;
+  min-height: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $space-6;
+  padding: $space-5 0;
+
+  @include respond-to(md) {
+    min-height: 40vh;
+    margin-bottom: $space-7;
+    padding: $space-6 0;
+  }
+}
+
+.heroDecor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorShape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  will-change: transform;
+
+  &.shape1 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    top: -60px;
+    right: -40px;
+    filter: blur(50px);
+
+    @include respond-to(md) {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      right: -80px;
+    }
+  }
+
+  &.shape2 {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, $color-accent 0%, #667eea 100%);
+    bottom: 20%;
+    left: -50px;
+    filter: blur(45px);
+
+    @include respond-to(md) {
+      width: 300px;
+      height: 300px;
+      left: -80px;
+    }
+  }
+
+  &.shape3 {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    top: 50%;
+    right: 20%;
+    filter: blur(35px);
+    opacity: 0.1;
+
+    @include respond-to(md) {
+      width: 180px;
+      height: 180px;
+    }
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-4;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    justify-content: center;
+    gap: $space-4;
+  }
+}
+
+.titleIcon {
+  font-size: 2.5rem;
+  color: $color-accent;
+  filter: drop-shadow(0 4px 12px rgba($color-accent, 0.3));
+
+  @include respond-to(md) {
+    font-size: 3rem;
+  }
+}
+
+.titleText {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $color-primary;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @include respond-to(md) {
+    font-size: 3rem;
+  }
+
+  @include respond-to(lg) {
+    font-size: 3.5rem;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: $color-muted;
+  max-width: 550px;
+  margin: 0 auto;
+  will-change: transform, opacity, filter;
+
+  @include respond-to(md) {
+    font-size: 1.125rem;
+  }
+}
+
+// ============================================
+// Stats Section
+// ============================================
+.statsSection {
+  margin-bottom: $space-6;
+  padding: $space-4 0;
+
+  @include respond-to(md) {
+    margin-bottom: $space-7;
+    padding: $space-5 0;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-3;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-4;
+  }
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-4 $space-3;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition-base, transform $transition-base, border-color $transition-base;
+  will-change: transform, opacity;
+  cursor: default;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: rgba($color-accent, 0.3);
+    transform: translateY(-4px);
+  }
+
+  @include respond-to(md) {
+    padding: $space-5 $space-4;
+  }
+}
+
+.statIconWrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(#f093fb, 0.15) 0%, rgba(#f5576c, 0.1) 100%);
+  border-radius: $radius-md;
+  margin-bottom: $space-2;
+
+  @include respond-to(md) {
+    width: 56px;
+    height: 56px;
+    margin-bottom: $space-3;
+  }
+}
+
+.statIcon {
+  font-size: 1.5rem;
+  color: #f5576c;
+
+  @include respond-to(md) {
+    font-size: 1.75rem;
+  }
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: $color-primary;
+  line-height: 1.2;
+  margin-bottom: $space-1;
+
+  @include respond-to(md) {
+    font-size: 1.75rem;
+  }
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: $color-muted;
+  text-align: center;
+  font-weight: 500;
+
+  @include respond-to(md) {
+    font-size: 0.8rem;
+  }
+}
+
+// ============================================
+// Slider Section
+// ============================================
+.sliderSection {
+  margin-bottom: $space-6;
+  padding: $space-4 0;
+
+  @include respond-to(md) {
+    margin-bottom: $space-7;
+    padding: $space-5 0;
+  }
+}
+
+.sliderWrapper {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+// ============================================
+// Section Header (shared)
+// ============================================
+.sectionHeader {
+  text-align: center;
+  margin-bottom: $space-5;
+
+  @include respond-to(md) {
+    margin-bottom: $space-6;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-primary;
+  margin-bottom: $space-2;
+
+  @include respond-to(md) {
+    font-size: 1.75rem;
+  }
+}
+
+.sectionSubtitle {
+  font-size: 0.95rem;
+  color: $color-muted;
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    font-size: 1rem;
+  }
+}
+
+// ============================================
+// Projects Section
+// ============================================
+.projectsSection {
+  padding: $space-4 0;
+
+  @include respond-to(md) {
+    padding: $space-5 0;
+  }
+}

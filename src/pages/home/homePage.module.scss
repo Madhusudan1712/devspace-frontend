@@ -1,0 +1,446 @@
+@use '../../style/variable' as *;
+@use 'sass:color';
+
+.homePage {
+  padding: $space-5 $space-4;
+  padding-bottom: $space-8;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  @include respond-to(md) {
+    padding: $space-6 $space-5;
+    padding-bottom: calc($space-8 * 1.5);
+  }
+}
+
+// ============================================
+// Hero Section
+// ============================================
+.hero {
+  position: relative;
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $space-7;
+  padding: $space-6 0;
+
+  @include respond-to(md) {
+    min-height: 70vh;
+    margin-bottom: $space-8;
+  }
+}
+
+.heroDecor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorShape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  will-change: transform;
+
+  &.shape1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, $color-accent 0%, color.adjust($color-accent, $lightness: 20%) 100%);
+    top: -80px;
+    right: -60px;
+    filter: blur(60px);
+
+    @include respond-to(md) {
+      width: 500px;
+      height: 500px;
+      top: -120px;
+      right: -100px;
+    }
+  }
+
+  &.shape2 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
+    bottom: 10%;
+    left: -60px;
+    filter: blur(50px);
+
+    @include respond-to(md) {
+      width: 350px;
+      height: 350px;
+      left: -100px;
+    }
+  }
+
+  &.shape3 {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    top: 40%;
+    right: 15%;
+    filter: blur(40px);
+    opacity: 0.1;
+
+    @include respond-to(md) {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  &.shape4 {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    bottom: 20%;
+    right: 30%;
+    filter: blur(35px);
+    opacity: 0.12;
+
+    @include respond-to(md) {
+      width: 180px;
+      height: 180px;
+    }
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-bottom: $space-5;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+.greeting {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $color-accent;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: $space-1;
+
+  @include respond-to(md) {
+    font-size: 1.125rem;
+  }
+}
+
+.name {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: $color-primary;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @include respond-to(md) {
+    font-size: 4rem;
+  }
+
+  @include respond-to(lg) {
+    font-size: 4.5rem;
+  }
+}
+
+.role {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: color.mix($color-primary, $color-muted, 70%);
+  margin-top: $space-2;
+
+  @include respond-to(md) {
+    font-size: 1.5rem;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: $color-muted;
+  max-width: 600px;
+  margin: 0 auto $space-6;
+  will-change: transform, opacity, filter;
+
+  @include respond-to(md) {
+    font-size: 1.125rem;
+  }
+}
+
+.ctaButtons {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  justify-content: center;
+  align-items: center;
+
+  @include respond-to(sm) {
+    flex-direction: row;
+    gap: $space-4;
+  }
+
+  > * {
+    min-width: 180px;
+  }
+}
+
+// ============================================
+// Stats Section
+// ============================================
+.statsSection {
+  margin-bottom: $space-7;
+  padding: $space-6 0;
+
+  @include respond-to(md) {
+    margin-bottom: $space-8;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-4;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-5;
+  }
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-5 $space-4;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition-base, transform $transition-base, border-color $transition-base;
+  will-change: transform, opacity;
+  cursor: default;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: rgba($color-accent, 0.3);
+    transform: translateY(-4px);
+  }
+}
+
+.statIconWrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba($color-accent, 0.1) 0%, rgba($color-primary, 0.05) 100%);
+  border-radius: $radius-md;
+  margin-bottom: $space-3;
+}
+
+.statIcon {
+  font-size: 1.75rem;
+  color: $color-accent;
+}
+
+.statValue {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: $color-primary;
+  line-height: 1.2;
+  margin-bottom: $space-1;
+
+  @include respond-to(md) {
+    font-size: 2rem;
+  }
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: $color-muted;
+  text-align: center;
+  font-weight: 500;
+
+  @include respond-to(md) {
+    font-size: 0.875rem;
+  }
+}
+
+// ============================================
+// Features Section
+// ============================================
+.featuresSection {
+  padding: $space-5 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: $space-6;
+
+  @include respond-to(md) {
+    margin-bottom: $space-7;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $color-primary;
+  margin-bottom: $space-2;
+
+  @include respond-to(md) {
+    font-size: 2.25rem;
+  }
+}
+
+.sectionSubtitle {
+  font-size: 1rem;
+  color: $color-muted;
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    font-size: 1.125rem;
+  }
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-5;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-6;
+  }
+}
+
+.featureCard {
+  position: relative;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba($color-black, 0.08);
+  border: 1px solid $color-border;
+  transition: box-shadow $transition-base, transform $transition-base;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.4);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.4);
+  }
+}
+
+.featureGradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  opacity: 0.9;
+}
+
+.featureContent {
+  padding: $space-6 $space-5;
+  padding-top: calc($space-6 + 6px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 220px;
+
+  @include respond-to(md) {
+    min-height: 260px;
+    padding: $space-6;
+    padding-top: calc($space-6 + 6px);
+  }
+}
+
+.featureIconWrapper {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba($color-secondary, 0.4) 0%, rgba($color-secondary, 0.15) 100%);
+  border-radius: $radius-md;
+  margin-bottom: $space-4;
+}
+
+.featureIcon {
+  font-size: 2rem;
+  color: $color-primary;
+  will-change: transform;
+}
+
+.featureTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $color-primary;
+  margin-bottom: $space-2;
+
+  @include respond-to(md) {
+    font-size: 1.375rem;
+  }
+}
+
+.featureDescription {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: $color-muted;
+  flex-grow: 1;
+
+  @include respond-to(md) {
+    font-size: 0.95rem;
+  }
+}
+
+.featureArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba($color-primary, 0.08);
+  border-radius: 50%;
+  margin-top: $space-4;
+  transition: background-color $transition-base, transform $transition-base;
+
+  svg {
+    font-size: 1rem;
+    color: $color-primary;
+    transition: transform $transition-base;
+  }
+
+  .featureCard:hover & {
+    background: $color-primary;
+
+    svg {
+      color: $color-white;
+      transform: translateX(3px);
+    }
+  }
+}

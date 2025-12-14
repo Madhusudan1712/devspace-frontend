@@ -1,0 +1,74 @@
+@use 'sass:map';
+
+// Design tokens and helpers for the light theme
+// Keep these generic so we can swap values for dark mode later.
+
+// Palette - Light theme - (60% Dominant background, 30% Secondary sections, 10% Accent interactions) and Dark theme - (10% Dominant background, 30% Secondary sections, 60% Accent interactions)
+$color-background: #F9F7F7; // dominant
+$color-secondary: #DBE2EF;  // secondary (headers/nav/sections)
+$color-accent: #3F72AF;     // accent (buttons/links/highlights)
+$color-primary: #112D4E;    // strong emphasis (titles/hover/primary)
+$color-white: #ffffff;
+$color-black: #000000;
+
+// Semantic aliases
+$color-text: $color-black;         // default text on light background
+$color-surface: $color-white;      // cards and surface elements
+$color-border: rgba($color-primary, 0.12);
+$color-muted: rgba($color-black, 0.6);
+
+// Typography
+$font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+$font-family-base: $font-family-sans;
+$font-size-root: 100%;     // 16px base (1rem = 16px)
+$font-size-base: 1rem;     // 16px
+$line-height-base: 1.5;
+$font-weight-base: 400;
+$headings-font-weight: 600;
+$headings-line-height: 1.25;
+
+// Spacing scale
+$space-1: 0.25rem;  // 4px
+$space-2: 0.5rem;   // 8px
+$space-3: 0.75rem;  // 12px
+$space-4: 1rem;     // 16px
+$space-5: 1.5rem;   // 24px
+$space-6: 2rem;     // 32px
+$space-7: 3rem;     // 48px
+$space-8: 4rem;     // 64px
+
+// Radius
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+$radius-round: 9999px;
+
+// Shadows (minimal, modern)
+$shadow-sm: 0 1px 2px rgba($color-black, 0.05), 0 1px 1px rgba($color-black, 0.04);
+$shadow-md: 0 2px 8px rgba($color-black, 0.08), 0 4px 16px rgba($color-black, 0.06);
+
+// Transitions
+$transition-fast: 120ms ease-out;
+$transition-base: 180ms ease-in-out;
+$transition-slow: 280ms ease-in;
+
+// Breakpoints and helpers
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+@mixin respond-to($breakpoint) {
+  $value: map.get($breakpoints, $breakpoint);
+  @if $value {
+    @media (min-width: $value) { @content; }
+  }
+}
+
+// Z-index scale
+$z-nav: 1000;
+$z-overlay: 1100;
+$z-modal: 1200;
+$z-toast: 1300;

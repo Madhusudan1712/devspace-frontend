@@ -1,0 +1,300 @@
+@use '../../../../style/variable' as *;
+@use 'sass:color';
+
+.accordionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  width: 100%;
+}
+
+.accordion {
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: rgba($color-accent, 0.2);
+  }
+
+  &:before {
+    display: none;
+  }
+
+  &.Mui-expanded {
+    margin: 0;
+    box-shadow: $shadow-md;
+    border-color: rgba($color-accent, 0.25);
+  }
+}
+
+.accordionSummary {
+  padding: $space-3 $space-4;
+  min-height: auto;
+  transition: background-color $transition-base;
+
+  &:hover {
+    background-color: rgba($color-accent, 0.04);
+  }
+
+  &.Mui-expanded {
+    min-height: auto;
+    background-color: rgba($color-accent, 0.06);
+  }
+
+  .MuiAccordionSummary-content {
+    margin: 0;
+    
+    &.Mui-expanded {
+      margin: 0;
+    }
+  }
+
+  .MuiAccordionSummary-expandIconWrapper {
+    color: $color-accent;
+    transition: transform $transition-base;
+
+    &.Mui-expanded {
+      transform: rotate(180deg);
+    }
+  }
+
+  @include respond-to(md) {
+    padding: $space-4 $space-5;
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.projectTitle {
+  font-weight: 700;
+  color: $color-primary;
+  font-size: 1.125rem;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  flex: 1;
+  margin: 0;
+
+  @include respond-to(md) {
+    font-size: 1.25rem;
+  }
+}
+
+// Status Badges
+.statusBadge {
+  padding: $space-1 $space-3;
+  border-radius: $radius-round;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba($color-black, 0.1);
+  transition: transform $transition-fast;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.statusDev {
+  background-color: #FF9800;
+  color: $color-white;
+}
+
+.statusStg {
+  background-color: $color-accent;
+  color: $color-white;
+}
+
+.statusProd {
+  background-color: #4CAF50;
+  color: $color-white;
+}
+
+.statusLocal {
+  background-color: #4c4caf;
+  color: $color-white;
+}
+
+// Accordion Details
+.accordionDetails {
+  padding: $space-4;
+  border-top: 1px solid $color-border;
+  background-color: rgba($color-background, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+
+  @include respond-to(md) {
+    padding: $space-5;
+    gap: $space-6;
+  }
+}
+
+// Section Styles
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.sectionLabel {
+  font-weight: 600;
+  color: $color-primary;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+
+  @include respond-to(md) {
+    font-size: 0.9375rem;
+  }
+}
+
+// Tech Stack Pills
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  align-items: center;
+}
+
+.techChip {
+  background-color: rgba($color-accent, 0.15);
+  color: $color-accent;
+  border-radius: $radius-round;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: $space-1 $space-3;
+  height: auto;
+  border: 1px solid rgba($color-accent, 0.25);
+  transition: all $transition-base;
+
+  &:hover {
+    background-color: rgba($color-accent, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba($color-accent, 0.2);
+  }
+
+  .MuiChip-label {
+    padding: 0;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+}
+
+// Description
+.descriptionList {
+  margin: 0;
+  padding-left: $space-5;
+  list-style-type: disc;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.descriptionItem {
+  color: $color-text;
+  line-height: 1.7;
+
+  &::marker {
+    color: $color-accent;
+  }
+}
+
+.description {
+  color: $color-text;
+  line-height: 1.7;
+  font-size: 0.9375rem;
+  margin: 0;
+
+  @include respond-to(md) {
+    font-size: 1rem;
+  }
+}
+
+// Links Section
+.links {
+  display: flex;
+  gap: $space-3;
+  flex-wrap: wrap;
+}
+
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  border-radius: $radius-sm;
+  background-color: $color-primary;
+  color: $color-white;
+  transition: all $transition-base;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 2px 6px rgba($color-primary, 0.2);
+  cursor: pointer;
+
+  &:hover {
+    background-color: color.mix($color-primary, $color-black, 85%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba($color-primary, 0.3);
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba($color-primary, 0.2);
+  }
+
+  svg {
+    font-size: 1.125rem;
+    color: $color-white;
+  }
+}
+
+.linkText {
+  color: $color-white !important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+// Responsive Adjustments
+@media (max-width: 600px) {
+  .headerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-2;
+  }
+
+  .techStack {
+    gap: $space-1;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: $space-2;
+  }
+
+  .linkButton {
+    width: auto;
+    justify-content: center;
+  }
+}
+
+

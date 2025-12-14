@@ -1,0 +1,72 @@
+[
+	{
+		"id": "javascript",
+		"alt": "JavaScript",
+		"href": "https://developer.mozilla.org/docs/Web/JavaScript"
+	},
+	{
+		"id": "react",
+		"alt": "React",
+		"href": "https://react.dev"
+	},
+	{
+		"id": "bootstrap",
+		"alt": "Bootstrap",
+		"href": "https://getbootstrap.com"
+	},
+	{
+		"id": "java",
+		"alt": "Java",
+		"href": "https://www.java.com"
+	},
+	{
+		"id": "spring",
+		"alt": "Spring",
+		"href": "https://spring.io"
+	},
+	{
+		"id": "nodejs",
+		"alt": "Node.js",
+		"href": "https://nodejs.org"
+	},
+	{
+		"id": "mongodb",
+		"alt": "MongoDB",
+		"href": "https://www.mongodb.com"
+	},
+	{
+		"id": "postgresql",
+		"alt": "PostgreSQL",
+		"href": "https://www.postgresql.org"
+	},
+	{
+		"id": "mysql",
+		"alt": "MySQL",
+		"href": "https://www.mysql.com"
+	},
+	{
+		"id": "docker",
+		"alt": "Docker",
+		"href": "https://www.docker.com"
+	},
+	{
+		"id": "kubernetes",
+		"alt": "Kubernetes",
+		"href": "https://kubernetes.io"
+	},
+	{
+		"id": "git",
+		"alt": "Git",
+		"href": "https://git-scm.com"
+	},
+	{
+		"id": "aws",
+		"alt": "AWS",
+		"href": "https://aws.amazon.com"
+	},
+	{
+		"id": "csharp",
+		"alt": "C#",
+		"href": "https://learn.microsoft.com/dotnet/csharp/"
+	}
+]

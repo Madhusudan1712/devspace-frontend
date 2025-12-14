@@ -1,0 +1,104 @@
+.slider {
+	width: 100%;
+}
+
+.viewport {
+	/* Hide overflow to create a viewport window */
+	overflow: hidden;
+	width: 100%;
+	/* Allow horizontal panning while preserving vertical scroll on touch devices */
+	touch-action: pan-y;
+	/* Visual cue for drag interaction */
+	cursor: grab;
+
+	/* Defaults for CSS variables; JS sets --visibleCountLarge and --gapLarge inline */
+	/* Small screens: very tight gap */
+	--gap: 1px;
+	/* Small screens: show fewer logos by default */
+	--visibleCount: 2;
+}
+
+.dragging {
+	cursor: grabbing;
+	user-select: none;
+}
+
+.track {
+	display: flex;
+	align-items: center;
+	gap: var(--gap);
+	/* The track is wider than the viewport due to duplicated content */
+}
+
+.item {
+	/* Ensure exactly N items are visible based on --visibleCount and spacing gap */
+	flex: 0 0 calc((100% - (var(--visibleCount) - 1) * var(--gap)) / var(--visibleCount));
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2px;
+	border-radius: 8px;
+	text-decoration: none;
+}
+
+.link:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.image {
+	display: block;
+	/* Iconify SVG inherits font-size and color */
+	font-size: 2.25rem;
+	color: var(--color-text);
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	/* Prevent icon from shrinking oddly in flex context */
+	flex: 0 0 auto;
+}
+
+/* Responsiveness: adjust how many are visible as the screen grows */
+@media (min-width: 600px) {
+	.viewport {
+		--visibleCount: 4;
+	}
+}
+
+@media (min-width: 1024px) {
+	.viewport {
+		/* Large screens use the value provided from props via --visibleCountLarge / --gapLarge.
+		   Defaults to 6 logos and the same gap as small if not set. */
+		--visibleCount: var(--visibleCountLarge, 6);
+		--gap: var(--gapLarge, var(--gap));
+	}
+}
+
+/* CSS Animation Fallback for continuous scrolling */
+.cssFallback .track {
+	will-change: transform;
+	animation-name: logo-scroll;
+	animation-timing-function: linear;
+	animation-duration: var(--duration, 30s);
+	animation-iteration-count: infinite;
+}
+
+.cssFallback .track[data-paused='true'] {
+	animation-play-state: paused;
+}
+
+@keyframes logo-scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}

@@ -1,0 +1,133 @@
+@use '../../../style/variable' as variable;
+
+/* Easing + local tokens */
+$ease-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+$transition-fast: 160ms $ease-spring;
+$transition-med: 220ms $ease-spring;
+
+/* AppBar and Toolbar */
+.appbar {
+  background-color: variable.$color-secondary !important;
+  color: variable.$color-primary !important;
+  backdrop-filter: saturate(120%) blur(6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-block: 10px;
+}
+
+/* Desktop Tabs (segmented control look) */
+.navbar-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  margin-left: auto;
+  padding: 6px;
+  background-color: rgba(variable.$color-white, 0.6);
+  border: 1px solid variable.$color-border;
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.tab-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  color: variable.$color-primary;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border-radius: 999px;
+  transition: color $transition-fast, transform $transition-fast, background-color $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    color: variable.$color-primary;
+    background-color: rgba(variable.$color-accent, 0.12);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(variable.$color-accent, 0.35);
+  }
+}
+
+/* Active pill */
+.active {
+  color: variable.$color-primary;
+  background-color: variable.$color-white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid variable.$color-border;
+}
+
+
+/* Drawer for Mobile */
+.drawer {
+  background-color: rgba(variable.$color-secondary, 0.6) !important;
+  color: variable.$color-primary !important;
+  width: 200px;
+  height: 100%;
+  padding: 20px;
+  border: 1px solid variable.$color-border;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.drawer-link {
+  display: block;
+  position: relative;
+  padding: 10px 12px;
+  color: variable.$color-primary;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  border: 1px solid transparent;
+  transition: color $transition-fast, background-color $transition-fast, box-shadow $transition-fast, border-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    color: variable.$color-primary;
+    background-color: rgba(variable.$color-accent, 0.12);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(variable.$color-accent, 0.35);
+  }
+}
+
+.drawer-link.active {
+  color: variable.$color-primary;
+  background-color: variable.$color-white;
+  border: 1px solid variable.$color-border;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.drawer-admin-button {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-tabs {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 10px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+}

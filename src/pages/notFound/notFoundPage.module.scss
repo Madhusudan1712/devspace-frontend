@@ -1,0 +1,43 @@
+@use '../../style/variable' as variable;
+@use 'sass:color';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, variable.$color-secondary, variable.$color-accent);
+  color: variable.$color-white;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  padding: 16px;
+}
+
+.heading {
+  font-size: 120px;
+  font-weight: bold;
+  text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.message {
+  font-size: 20px;
+  margin-bottom: 20px;
+  opacity: 0.95;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  background-color: variable.$color-primary;
+  color: variable.$color-white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: color.mix(variable.$color-primary, variable.$color-accent, 60%);
+  transform: translateY(-2px);
+}

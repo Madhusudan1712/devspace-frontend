@@ -1,0 +1,56 @@
+@use '../../../style/variable' as variable;
+
+/* src/components/Loading/loading.module.css */
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* secondary with translucency */
+    background-color: rgba(variable.$color-secondary, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1300; /* above everything */
+    pointer-events: all;
+  }
+  
+  .dialog {
+    background-color: variable.$color-surface;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    pointer-events: none; /* block outside clicks */
+  }
+  
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 6px solid variable.$color-accent;
+    border-top: 6px solid variable.$color-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+  }
+  
+  .text {
+    font-size: 1.2rem;
+    color: variable.$color-primary;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .dots {
+    display: inline-block;
+    letter-spacing: 2px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

@@ -1,0 +1,400 @@
+@use '../../style/variable' as *;
+@use 'sass:color';
+
+.experiencePage {
+  padding: $space-5 $space-4;
+  padding-bottom: $space-8;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  @include respond-to(md) {
+    padding: $space-6 $space-5;
+    padding-bottom: calc($space-8 * 1.5);
+  }
+}
+
+// ============================================
+// Hero Section
+// ============================================
+.hero {
+  position: relative;
+  min-height: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $space-6;
+  padding: $space-5 0;
+
+  @include respond-to(md) {
+    min-height: 40vh;
+    margin-bottom: $space-7;
+    padding: $space-6 0;
+  }
+}
+
+.heroDecor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorShape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  will-change: transform;
+
+  &.shape1 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    top: -60px;
+    right: -40px;
+    filter: blur(50px);
+
+    @include respond-to(md) {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      right: -80px;
+    }
+  }
+
+  &.shape2 {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, $color-accent 0%, $color-primary 100%);
+    bottom: 20%;
+    left: -50px;
+    filter: blur(45px);
+
+    @include respond-to(md) {
+      width: 300px;
+      height: 300px;
+      left: -80px;
+    }
+  }
+
+  &.shape3 {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    top: 50%;
+    right: 20%;
+    filter: blur(35px);
+    opacity: 0.1;
+
+    @include respond-to(md) {
+      width: 180px;
+      height: 180px;
+    }
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-4;
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    justify-content: center;
+    gap: $space-4;
+  }
+}
+
+.titleIcon {
+  font-size: 2.5rem;
+  color: $color-accent;
+  filter: drop-shadow(0 4px 12px rgba($color-accent, 0.3));
+
+  @include respond-to(md) {
+    font-size: 3rem;
+  }
+}
+
+.titleText {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $color-primary;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @include respond-to(md) {
+    font-size: 3rem;
+  }
+
+  @include respond-to(lg) {
+    font-size: 3.5rem;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: $color-muted;
+  max-width: 550px;
+  margin: 0 auto;
+  will-change: transform, opacity, filter;
+
+  @include respond-to(md) {
+    font-size: 1.125rem;
+  }
+}
+
+// ============================================
+// Stats Section
+// ============================================
+.statsSection {
+  margin-bottom: $space-6;
+  padding: $space-4 0;
+
+  @include respond-to(md) {
+    margin-bottom: $space-7;
+    padding: $space-5 0;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-3;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-4;
+  }
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-4 $space-3;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition-base, transform $transition-base, border-color $transition-base;
+  will-change: transform, opacity;
+  cursor: default;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: rgba($color-accent, 0.3);
+    transform: translateY(-4px);
+  }
+
+  @include respond-to(md) {
+    padding: $space-5 $space-4;
+  }
+}
+
+.statIconWrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(#4facfe, 0.15) 0%, rgba(#00f2fe, 0.1) 100%);
+  border-radius: $radius-md;
+  margin-bottom: $space-2;
+
+  @include respond-to(md) {
+    width: 56px;
+    height: 56px;
+    margin-bottom: $space-3;
+  }
+}
+
+.statIcon {
+  font-size: 1.5rem;
+  color: #4facfe;
+
+  @include respond-to(md) {
+    font-size: 1.75rem;
+  }
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: $color-primary;
+  line-height: 1.2;
+  margin-bottom: $space-1;
+
+  @include respond-to(md) {
+    font-size: 1.75rem;
+  }
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: $color-muted;
+  text-align: center;
+  font-weight: 500;
+
+  @include respond-to(md) {
+    font-size: 0.8rem;
+  }
+}
+
+// ============================================
+// Section Header (shared)
+// ============================================
+.sectionHeader {
+  text-align: center;
+  margin-bottom: $space-5;
+
+  @include respond-to(md) {
+    margin-bottom: $space-6;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-primary;
+  margin-bottom: $space-2;
+
+  @include respond-to(md) {
+    font-size: 1.75rem;
+  }
+}
+
+.sectionSubtitle {
+  font-size: 0.95rem;
+  color: $color-muted;
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    font-size: 1rem;
+  }
+}
+
+// ============================================
+// Highlights Section
+// ============================================
+.highlightsSection {
+  margin-bottom: $space-6;
+  padding: $space-4 0;
+
+  @include respond-to(md) {
+    margin-bottom: $space-7;
+    padding: $space-5 0;
+  }
+}
+
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-4;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-5;
+  }
+}
+
+.highlightCard {
+  position: relative;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba($color-black, 0.06);
+  border: 1px solid $color-border;
+  transition: box-shadow $transition-base, transform $transition-base;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.highlightGradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  opacity: 0.9;
+}
+
+.highlightContent {
+  padding: $space-5 $space-4;
+  padding-top: calc($space-5 + 5px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @include respond-to(md) {
+    padding: $space-5;
+    padding-top: calc($space-5 + 5px);
+    min-height: 180px;
+  }
+}
+
+.highlightIconWrapper {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba($color-secondary, 0.5) 0%, rgba($color-secondary, 0.2) 100%);
+  border-radius: $radius-md;
+  margin-bottom: $space-3;
+}
+
+.highlightIcon {
+  font-size: 1.6rem;
+  color: $color-primary;
+  will-change: transform;
+}
+
+.highlightTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $color-primary;
+  margin-bottom: $space-2;
+
+  @include respond-to(md) {
+    font-size: 1.2rem;
+  }
+}
+
+.highlightDescription {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: $color-muted;
+
+  @include respond-to(md) {
+    font-size: 0.9rem;
+  }
+}
+
+// ============================================
+// Timeline Section
+// ============================================
+.timelineSection {
+  padding: $space-4 0;
+
+  @include respond-to(md) {
+    padding: $space-5 0;
+  }
+}
